@@ -1,6 +1,6 @@
 :sunglasses: 
 ```diff
-+ git add .
++ git add . :bird:
 + git commit -m "test"
 + git push origin master
 ```
