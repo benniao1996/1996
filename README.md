@@ -5,6 +5,7 @@
 + git push origin master
 ```
 ===========================
+
 该文件用来测试和展示书写README的各种markdown语法。GitHub的markdown语法在标准的markdown语法基础上做了扩充，称之为`GitHub Flavored Markdown`。简称`GFM`，GFM在GitHub上有广泛应用，除了README文件外，issues和wiki均支持markdown语法。
 
 ****
@@ -136,7 +137,7 @@ alt和title即对应HTML中的alt和title属性（都可省略）：
 
 URL即图片的url地址，如果引用本仓库中的图片，直接使用**相对路径**就可了，如果引用其他github仓库中的图片要注意格式，即：`仓库地址/raw/分支名/图片路径`，如：
 ```
-https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
+https://github.com/benniao1996/1996.git
 ```
 
 |#|语法|效果|
@@ -146,9 +147,6 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 
 注意例2的写法使用了**URL标识符**的形式，在[链接](#链接)一节有介绍。
 >在文末有code-past的定义：
-```
-[code-past]:/img/codepast-logo.jpg "公众号：编程往事"
-```
 
 链接
 ------
@@ -156,11 +154,11 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 
 |#|语法|效果|
 |---|----|-----|
-|1|`[我的博客](http://blog.csdn.net/guodongxiaren "悬停显示")`|[我的博客](http://blog.csdn.net/guodongxiaren "悬停显示")|
-|2|`[我的知乎][zhihu] `|[我的知乎][zhihu] |
+|1|`[我的git](https://github.com/benniao1996/1996.git "悬停显示")`|[我的git](https://github.com/benniao1996/1996.git "悬停显示")|
+|2|`[我的XX][xx] `|[我的xx][xx] |
 
 语法2由两部分组成：
-- 第一部分使用两个中括号，[ ]里的标识符（本例中zhihu），可以是数字，字母等的组合，标识符上下对应就行了（**姑且称之为URL标识符**）
+- 第一部分使用两个中括号，[ ]里的标识符（本例中xx），可以是数字，字母等的组合，标识符上下对应就行了（**姑且称之为URL标识符**）
 - 第二部分标记实际URL。
 
 >使用URL标识符能达到复用的目的，一般把全文所有的URL标识符统一放在文章末尾，这样看起来比较干净。除了干净之外，它还能达到复用的目的，比如你在多个地方想使用同一个链接，那么文内使用标识符，只在最底部给标识符定义出实际的URL链接即可，类似编程语言中的变量。
@@ -179,7 +177,7 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 
 |#|语法|效果|
 |---|----|:---:|
-|1|`[![weibo-logo]](http://weibo.com/linpiaochen)`|[![weibo-logo]](http://weibo.com/linpiaochen)|
+|1|`[![git-logo]](https://github.com/benniao1996/1996.git)`|[![git-logo]](https://github.com/benniao1996/1996.git)|
 |2|`[![](/img/zhihu.png "我的知乎，欢迎关注")][zhihu]`|[![](/img/zhihu.png "我的知乎，欢迎关注")][zhihu]|
 |3|`[![csdn-logo]][csdn]`|[![csdn-logo]][csdn]|
 
@@ -201,14 +199,14 @@ https://github.com/guodongxiaren/ImageCache/raw/master/Logo/foryou.gif
 ### 无序列表
 #### 语法
 ```
-* 昵称：果冻虾仁
-- 别名：隔壁老王
-* 英文名：Jelly
+* 昵称：benniao
+- 别名：笨鸟
+* 英文名：benbird
 ```
 #### 效果
-* 昵称：果冻虾仁
-- 别名：隔壁老王
-* 英文名：Jelly
+* 昵称：benniao
+- 别名：笨鸟
+* 英文名：benbird
 
 ### 多级无序列表
 #### 语法
