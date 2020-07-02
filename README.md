@@ -1,4 +1,4 @@
-:sunglasses: :bird: 
+:bird::sunglasses::bird: 
 ```diff
 ! git add . 
 - git commit -m "test"
