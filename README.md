@@ -5,6 +5,8 @@
 |[__:couple_with_heart: = :secret:保密:secret:__](https://github.com/benniao1996/1996)|[__:airplane:Telegram:airplane:=t.me/BenniaoHacker__](https://t.me/BenniaoHacker)|
 ****
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
+| __常见云服务商__ | [AWS](https://aws.amazon.com/) | [阿里云](https://cn.aliyun.com/) | [腾讯云](https://cloud.tencent.com/) | [华为云](https://www.huaweicloud.com/intl/zh-cn/) | [Vultr](https://www.vultr.com/?ref=8606091-6G) | [AZURE](https://azure.microsoft.com/zh-cn/) |
+[~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
 | __WEB服务__ | [Nginx](http://nginx.org/)  | [Tengine](http://tengine.taobao.org/) | [Httpd](http://httpd.apache.org/) | [Tomcat](http://tomcat.apache.org/) | [IIS](https://www.iis.net/) | [宝塔](https://www.bt.cn/)  | 
 | :----------: | :-----------: | :----------: | :-----------: | :----------: | :-----------: | :----------: | 
