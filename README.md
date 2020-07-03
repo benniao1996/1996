@@ -6,8 +6,7 @@
 ****
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
-| col 3 is      | some wordy text | $1600 | col 3 is      | some wordy text | $1600 | col 3 is      | some wordy text | $1600 |
-|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
-|[NGINX](http://nginx.org/nginx.png) | [NGINX](http://nginx.org/)|[高性能WEB服务器](http://nginx.org/en/docs/)|[NGINX](http://nginx.org/nginx.png) | [NGINX](http://nginx.org/)|[高性能WEB服务器](http://nginx.org/en/docs/)|[NGINX](http://nginx.org/nginx.png) | [NGINX](http://nginx.org/)|[高性能WEB服务器](http://nginx.org/en/docs/)|
-| col 3 is      | some wordy text | $1600 | col 3 is      | some wordy text | $1600 | col 3 is      | some wordy text | $1600 |
-
+| 表头1  | 表头2 | 表头1  | 表头2 | 表头1  | 表头2 | 表头1  | 表头2|
+| ---------- | -----------| ---------- | -----------| ---------- | -----------| ---------- | -----------|
+| 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   |
+| 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   |
