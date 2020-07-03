@@ -6,7 +6,7 @@
 ****
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
-| __云服务商__ | [AWS](https://aws.amazon.com/) | [阿里云](https://cn.aliyun.com/) | [腾讯云](https://cloud.tencent.com/) | [华为云](https://www.huaweicloud.com/intl/zh-cn/) | [Vultr](https://www.vultr.com/?ref=8606091-6G) | [AZURE](https://azure.microsoft.com/zh-cn/) | [百度云](https://cloud.baidu.com/) | [群英云](http://www.qy.com.cn/) | [恒创科技](https://www.henghost.com/) | [西部数码](https://www.west.cn/) | :joy:～`穷:b:`～:joy: |
+| __云服务商__ | [AWS](https://aws.amazon.com/) | [阿里云](https://cn.aliyun.com/) | [腾讯云](https://cloud.tencent.com/) | [华为云](https://www.huaweicloud.com/intl/zh-cn/) | [Vultr](https://www.vultr.com/?ref=8606091-6G) | [AZURE](https://azure.microsoft.com/zh-cn/) | [百度云](https://cloud.baidu.com/) | [群英云](http://www.qy.com.cn/) | [恒创科技](https://www.henghost.com/) | [西部数码](https://www.west.cn/) | :joy:～***穷:b:***～:joy: |
 
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
