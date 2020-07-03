@@ -7,7 +7,7 @@
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
 | 常见WEB服务 | [NGINX](http://nginx.org/)  | [Tengine](http://tengine.taobao.org/) | [Httpd](http://httpd.apache.org/) | [TOMCAT](http://tomcat.apache.org/) | [IIS](https://www.iis.net/) | [lighttpd](http://www.lighttpd.net/)  | 
-| ---------- | -----------| ---------- | -----------| ---------- | -----------| ---------- | 
+| :----------: | :-----------: | :----------: | :-----------: | :----------: | :-----------: | :----------: | 
 | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 
 | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 
 | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 表格单元   | 
