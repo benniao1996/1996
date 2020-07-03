@@ -6,8 +6,8 @@
 ****
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
-|![NGINX](http://nginx.org/nginx.png) | [NGINX](http://nginx.org/)|[高性能WEB服务器](http://nginx.org/en/docs/)|
 |:---------------:|:---------------:|:---------------:|
+|![NGINX](http://nginx.org/nginx.png) | [NGINX](http://nginx.org/)|[高性能WEB服务器](http://nginx.org/en/docs/)|
 | col 3 is      | some wordy text | $1600 |
 | col 2 is      | centered        |   $12 |
 | zebra stripes | are neat        |    $1 |
