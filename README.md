@@ -18,7 +18,7 @@
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
 
-| 数据库服务 | [Mysql](http://nginx.org/)  | [Tengine](http://tengine.taobao.org/) | [Httpd](http://httpd.apache.org/) | [Tomcat](http://tomcat.apache.org/) | [IIS](https://www.iis.net/) | [Lighttpd](http://www.lighttpd.net/)  | 
+| 数据库服务 | [MySQL](https://www.mysql.com/)  | [MyCat](http://mycat.org.cn/) | [MariaDB](https://mariadb.org/) | [Redis](https://redis.io/) | [MongDB](https://www.mongodb.com/) | [PhpMyAdmin](https://www.phpmyadmin.net/)  | 
 | :----------: | :-----------: | :----------: | :-----------: | :----------: | :-----------: | :----------: | 
 | ***历史版本下载*** | [Version-Nginx](http://nginx.org/en/download.html) | [Version-Tengine]() | [Version-Httpd]() | [Version-Tomcat]() | [Version-IIS]() | [Version-Lighttpd]() |
 | ***使用帮助手册*** | [Doc-Nginx]() | [Doc-Tengine]() | [Doc-Httpd]() | [Doc-Tomcat]() | [Doc-IIS]() | [Doc-Lighttpd]() |
