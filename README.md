@@ -6,7 +6,7 @@
 ****
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
-| 左对齐 | 居中  | 右对齐 |
+|![NGINX][http://nginx.org/nginx.png] | NGINX|
 |:---------------:|:---------------:|:---------------:|
 | col 3 is      | some wordy text | $1600 |
 | col 2 is      | centered        |   $12 |
