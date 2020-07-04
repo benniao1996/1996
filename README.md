@@ -33,5 +33,5 @@
 
 [test](http://showterm.io/7b5f8d42ba021511e627e)
 
-<kbd>[__:restroom:=:neckbeard:直男:neckbeard:__](https://github.com/benniao1996/1996)</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd>
+<kbd>[__:restroom:=:neckbeard:直男:neckbeard:__](https://github.com/benniao1996/1996)</kbd>+<kbd>[__:globe_with_meridians:=:cn:中国:cn:__](https://github.com/benniao1996/1996)</kbd>+<kbd>Del</kbd>
 
