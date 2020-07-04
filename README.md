@@ -1,9 +1,7 @@
 # __[:sunglasses:工作笔记:sunglasses:](https://github.com/benniao1996/1996)__
-****
 
 <kbd>[__:restroom:=:neckbeard:直男:neckbeard:__](https://github.com/benniao1996/1996)</kbd>+<kbd>[__:globe_with_meridians:=:cn:中国:cn:__](https://github.com/benniao1996/1996)</kbd>+<kbd>[__:couple_with_heart: = :secret:保密:secret:__](https://github.com/benniao1996/1996)</kbd>+<kbd>[__~~:airplane:~~Telegram~~:airplane:~~=t.me/BenniaoHacker__](https://t.me/BenniaoHacker)</kbd>
 
-****
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
 | __*云服务商__ |[群联](http://www.ispqq.com/) | [AWS](https://aws.amazon.com/) | [阿里云](https://cn.aliyun.com/) | [腾讯云](https://cloud.tencent.com/) | [华为云](https://www.huaweicloud.com/intl/zh-cn/) | [Vultr](https://www.vultr.com/?ref=8606091-6G) | [AZURE](https://azure.microsoft.com/zh-cn/) | [百度云](https://cloud.baidu.com/) | [群英云](http://www.qy.com.cn/) | [恒创科技](https://www.henghost.com/) | [西部数码](https://www.west.cn/) | 
