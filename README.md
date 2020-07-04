@@ -12,12 +12,12 @@
 
 | __*WEB服务__ | [Nginx](https://nginx.org/)  | [Tengine](https://tengine.taobao.org/) | [Httpd](https://httpd.apache.org/) | [Tomcat](https://tomcat.apache.org/) | [IIS](https://www.iis.net/) | [宝塔](https://www.bt.cn/)  | 
 | :----------: | :-----------: | :----------: | :-----------: | :----------: | :-----------: | :----------: | 
-| ***历史版本下载*** | [Version-Nginx](https://nginx.org/en/download.html) | [Version-Tengine](https://tengine.taobao.org/download_cn.html) | [Version-Httpd]() | [Version-Tomcat]() | [Version-IIS]() | [Version-宝塔]() |
-| ***使用帮助手册*** | [Doc-Nginx](https://nginx.org/en/docs/) | [Doc-Tengine](https://tengine.taobao.org/documentation_cn.html) | [Doc-Httpd]() | [Doc-Tomcat]() | [Doc-IIS]() | [Doc-宝塔]() |
-| ***常见故障处理*** | [FAQ-Nginx](https://nginx.org/en/docs/faq.html) | [FAQ-Tengine](https://tengine.taobao.org/faq_cn.html) | [FAQ-Httpd]() | [FAQ-Tomcat]() | [FAQ-IIS]() | [FAQ-宝塔]() |
-| ***相关书籍资料*** | [PDF-Nginx](https://nginx.org/en/books.html) | [PDF-Tengine](https://tengine.taobao.org/book/) | [PDF-Httpd]() | [PDF-Tomcat]() | [PDF-IIS]() | [PDF-宝塔]() |
-| ***漏洞修复情况*** | [Bug-Nginx](http://nginx.org/en/security_advisories.html) | [Bug-Tengine](https://tengine.taobao.org/changelog_cn.html) | [Bug-Httpd]() | [Bug-Tomcat]() | [Bug-IIS]() | [Bug-宝塔]() |
-| ***项目源码地址*** | [SourceCode-Nginx](https://trac.nginx.org/nginx/browser?_ga=2.197435695.1080274919.1593757551-622746952.1593600593) | [SourceCode-Tengine](https://tengine.taobao.org/source_cn.html) | [SourceCode-Httpd]() | [SourceCode-Tomcat]() | [SourceCode-IIS]() | [SourceCode-宝塔]() |
+| ***历史版本下载*** | [Version-Nginx](https://nginx.org/en/download.html) | [Version-Tengine](https://tengine.taobao.org/download_cn.html) | [Version-Httpd](https://httpd.apache.org/download.cgi) | [Version-Tomcat]() | [Version-IIS]() | [Version-宝塔]() |
+| ***使用帮助手册*** | [Doc-Nginx](https://nginx.org/en/docs/) | [Doc-Tengine](https://tengine.taobao.org/documentation_cn.html) | [Doc-Httpd](https://httpd.apache.org/docs/) | [Doc-Tomcat]() | [Doc-IIS]() | [Doc-宝塔]() |
+| ***常见故障处理*** | [FAQ-Nginx](https://nginx.org/en/docs/faq.html) | [FAQ-Tengine](https://tengine.taobao.org/faq_cn.html) | [FAQ-Httpd](https://cwiki.apache.org/confluence/display/httpd/FAQ) | [FAQ-Tomcat]() | [FAQ-IIS]() | [FAQ-宝塔]() |
+| ***相关书籍资料*** | [PDF-Nginx](https://nginx.org/en/books.html) | [PDF-Tengine](https://tengine.taobao.org/book/) | [PDF-Httpd](https://cwiki.apache.org/confluence/display/httpd/) | [PDF-Tomcat]() | [PDF-IIS]() | [PDF-宝塔]() |
+| ***漏洞修复情况*** | [Bug-Nginx](http://nginx.org/en/security_advisories.html) | [Bug-Tengine](https://tengine.taobao.org/changelog_cn.html) | [Bug-Httpd](https://httpd.apache.org/security/vulnerabilities_24.html) | [Bug-Tomcat]() | [Bug-IIS]() | [Bug-宝塔]() |
+| ***项目源码地址*** | [SourceCode-Nginx](https://trac.nginx.org/nginx/browser?_ga=2.197435695.1080274919.1593757551-622746952.1593600593) | [SourceCode-Tengine](https://tengine.taobao.org/source_cn.html) | [SourceCode-Httpd](https://github.com/apache/httpd) | [SourceCode-Tomcat]() | [SourceCode-IIS]() | [SourceCode-宝塔]() |
 
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
