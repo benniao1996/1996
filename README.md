@@ -31,4 +31,4 @@
 | ***漏洞修复情况*** | [Bug-MySQL]() | [Bug-MyCat]() | [Bug-MariaDB]() | [Bug-Redis]() | [Bug-MongDB]() | [Bug-PhpMyAdmin]() |
 | ***项目源码地址*** | [SourceCode-MySQL]() | [SourceCode-MyCat]() | [SourceCode-MariaDB]() | [SourceCode-Redis]() | [SourceCode-MongDB]() | [SourceCode-PhpMyAdmin]() |
 
-![test](http://showterm.io/7b5f8d42ba021511e627e)
+[test](http://showterm.io/7b5f8d42ba021511e627e)
