@@ -31,4 +31,3 @@
 | ***漏洞修复情况*** | [Bug-MySQL]() | [Bug-MyCat]() | [Bug-MariaDB]() | [Bug-Redis]() | [Bug-MongDB]() | [Bug-PhpMyAdmin]() |
 | ***项目源码地址*** | [SourceCode-MySQL]() | [SourceCode-MyCat]() | [SourceCode-MariaDB]() | [SourceCode-Redis]() | [SourceCode-MongDB]() | [SourceCode-PhpMyAdmin]() |
 
-<img data-original-src="//upload-images.jianshu.io/upload_images/137499-6ca915490c6d6240.gif">
