@@ -33,4 +33,4 @@
 
 [test](http://showterm.io/7b5f8d42ba021511e627e)
 
-[^RUNOOB]: 菜鸟教程 -- 学的不仅是技术，更是梦想！！！
+使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑
