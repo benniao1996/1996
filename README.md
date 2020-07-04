@@ -17,12 +17,12 @@
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 | 数据库服务 | [MySQL](https://www.mysql.com/)  | [MyCat](https://mycat.org.cn/) | [MariaDB](https://mariadb.org/) | [Redis](https://redis.io/) | [MongDB](https://www.mongodb.com/) | [PhpMyAdmin](https://www.phpmyadmin.net/)  | 
 | :----------: | :-----------: | :----------: | :-----------: | :----------: | :-----------: | :----------: | 
-| ***历史版本下载*** | [Version-MySQL](http://nginx.org/en/download.html) | [Version-MyCat]() | [Version-MariaDB]() | [Version-Redis]() | [Version-MongDB]() | [Version-PhpMyAdmin]() |
-| ***使用帮助手册*** | [Doc-MySQL]() | [Doc-MyCat]() | [Doc-MariaDB]() | [Doc-Redis]() | [Doc-MongDB]() | [Doc-PhpMyAdmin]() |
-| ***常见故障处理*** | [FAQ-MySQL]() | [FAQ-MyCat]() | [FAQ-MariaDB]() | [FAQ-Redis]() | [FAQ-MongDB]() | [FAQ-PhpMyAdmin]() |
-| ***相关书籍资料*** | [PDF-MySQL]() | [PDF-MyCat]() | [PDF-MariaDB]() | [PDF-Redis]() | [PDF-MongDB]() | [PDF-PhpMyAdmin]() |
-| ***漏洞修复情况*** | [Bug-MySQL]() | [Bug-MyCat]() | [Bug-MariaDB]() | [Bug-Redis]() | [Bug-MongDB]() | [Bug-PhpMyAdmin]() |
-| ***项目源码地址*** | [SourceCode-MySQL]() | [SourceCode-MyCat]() | [SourceCode-MariaDB]() | [SourceCode-Redis]() | [SourceCode-MongDB]() | [SourceCode-PhpMyAdmin]() |
+| ***历史版本下载*** | [Version-MySQL](https://dev.mysql.com/downloads/) | [Version-MyCat]() | [Version-MariaDB]() | [Version-Redis]() | [Version-MongDB]() | [Version-PhpMyAdmin]() |
+| ***使用帮助手册*** | [Doc-MySQL](https://dev.mysql.com/doc/) | [Doc-MyCat]() | [Doc-MariaDB]() | [Doc-Redis]() | [Doc-MongDB]() | [Doc-PhpMyAdmin]() |
+| ***常见故障处理*** | [FAQ-MySQL](https://www.mysql.com/why-mysql/white-papers/#zh-22-0) | [FAQ-MyCat]() | [FAQ-MariaDB]() | [FAQ-Redis]() | [FAQ-MongDB]() | [FAQ-PhpMyAdmin]() |
+| ***相关书籍资料*** | [PDF-MySQL](https://www.kancloud.cn/search?q=mysql&type=book) | [PDF-MyCat]() | [PDF-MariaDB]() | [PDF-Redis]() | [PDF-MongDB]() | [PDF-PhpMyAdmin]() |
+| ***漏洞修复情况*** | [Bug-MySQL](https://www.oracle.com/search/results?cat=mysql&Ntk=SI-ALL5&Ntt=bug) | [Bug-MyCat]() | [Bug-MariaDB]() | [Bug-Redis]() | [Bug-MongDB]() | [Bug-PhpMyAdmin]() |
+| ***项目源码地址*** | [SourceCode-MySQL](https://github.com/mysql) | [SourceCode-MyCat]() | [SourceCode-MariaDB]() | [SourceCode-Redis]() | [SourceCode-MongDB]() | [SourceCode-PhpMyAdmin]() |
 
 
 
