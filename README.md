@@ -6,18 +6,18 @@
 ****
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
-| __云服务商__ |[群联](http://www.ispqq.com/) | [AWS](https://aws.amazon.com/) | [阿里云](https://cn.aliyun.com/) | [腾讯云](https://cloud.tencent.com/) | [华为云](https://www.huaweicloud.com/intl/zh-cn/) | [Vultr](https://www.vultr.com/?ref=8606091-6G) | [AZURE](https://azure.microsoft.com/zh-cn/) | [百度云](https://cloud.baidu.com/) | [群英云](http://www.qy.com.cn/) | [恒创科技](https://www.henghost.com/) | [西部数码](https://www.west.cn/) | 
+| __*云服务商__ |[群联](http://www.ispqq.com/) | [AWS](https://aws.amazon.com/) | [阿里云](https://cn.aliyun.com/) | [腾讯云](https://cloud.tencent.com/) | [华为云](https://www.huaweicloud.com/intl/zh-cn/) | [Vultr](https://www.vultr.com/?ref=8606091-6G) | [AZURE](https://azure.microsoft.com/zh-cn/) | [百度云](https://cloud.baidu.com/) | [群英云](http://www.qy.com.cn/) | [恒创科技](https://www.henghost.com/) | [西部数码](https://www.west.cn/) | 
 
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
-| __WEB服务__ | [Nginx](http://nginx.org/)  | [Tengine](http://tengine.taobao.org/) | [Httpd](http://httpd.apache.org/) | [Tomcat](http://tomcat.apache.org/) | [IIS](https://www.iis.net/) | [宝塔](https://www.bt.cn/)  | 
+| __*WEB服务__ | [Nginx](http://nginx.org/)  | [Tengine](http://tengine.taobao.org/) | [Httpd](http://httpd.apache.org/) | [Tomcat](http://tomcat.apache.org/) | [IIS](https://www.iis.net/) | [宝塔](https://www.bt.cn/)  | 
 | :----------: | :-----------: | :----------: | :-----------: | :----------: | :-----------: | :----------: | 
 | ***历史版本下载*** | [Version-Nginx](http://nginx.org/en/download.html) | [Version-Tengine]() | [Version-Httpd]() | [Version-Tomcat]() | [Version-IIS]() | [Version-宝塔]() |
-| ***使用帮助手册*** | [Doc-Nginx]() | [Doc-Tengine]() | [Doc-Httpd]() | [Doc-Tomcat]() | [Doc-IIS]() | [Doc-宝塔]() |
-| ***常见故障处理*** | [FAQ-Nginx]() | [FAQ-Tengine]() | [FAQ-Httpd]() | [FAQ-Tomcat]() | [FAQ-IIS]() | [FAQ-宝塔]() |
-| ***相关书籍资料*** | [PDF-Nginx]() | [PDF-Tengine]() | [PDF-Httpd]() | [PDF-Tomcat]() | [PDF-IIS]() | [PDF-宝塔]() |
-| ***漏洞修复情况*** | [Bug-Nginx]() | [Bug-Tengine]() | [Bug-Httpd]() | [Bug-Tomcat]() | [Bug-IIS]() | [Bug-宝塔]() |
-| ***项目源码地址*** | [SourceCode-Nginx]() | [SourceCode-Tengine]() | [SourceCode-Httpd]() | [SourceCode-Tomcat]() | [SourceCode-IIS]() | [SourceCode-宝塔]() |
+| ***使用帮助手册*** | [Doc-Nginx](http://nginx.org/en/docs/) | [Doc-Tengine]() | [Doc-Httpd]() | [Doc-Tomcat]() | [Doc-IIS]() | [Doc-宝塔]() |
+| ***常见故障处理*** | [FAQ-Nginx](http://nginx.org/en/docs/faq.html) | [FAQ-Tengine]() | [FAQ-Httpd]() | [FAQ-Tomcat]() | [FAQ-IIS]() | [FAQ-宝塔]() |
+| ***相关书籍资料*** | [PDF-Nginx](http://nginx.org/en/books.html) | [PDF-Tengine]() | [PDF-Httpd]() | [PDF-Tomcat]() | [PDF-IIS]() | [PDF-宝塔]() |
+| ***漏洞修复情况*** | [Bug-Nginx](http://nginx.org/en/security_advisories.html) | [Bug-Tengine]() | [Bug-Httpd]() | [Bug-Tomcat]() | [Bug-IIS]() | [Bug-宝塔]() |
+| ***项目源码地址*** | [SourceCode-Nginx](https://trac.nginx.org/nginx/browser?_ga=2.197435695.1080274919.1593757551-622746952.1593600593) | [SourceCode-Tengine]() | [SourceCode-Httpd]() | [SourceCode-Tomcat]() | [SourceCode-IIS]() | [SourceCode-宝塔]() |
 
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
@@ -31,5 +31,4 @@
 | ***漏洞修复情况*** | [Bug-MySQL]() | [Bug-MyCat]() | [Bug-MariaDB]() | [Bug-Redis]() | [Bug-MongDB]() | [Bug-PhpMyAdmin]() |
 | ***项目源码地址*** | [SourceCode-MySQL]() | [SourceCode-MyCat]() | [SourceCode-MariaDB]() | [SourceCode-Redis]() | [SourceCode-MongDB]() | [SourceCode-PhpMyAdmin]() |
 
-吃饭中～～饭后继续编辑
 
