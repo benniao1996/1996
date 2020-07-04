@@ -10,19 +10,19 @@
 
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
-| __*WEB服务__ | [Nginx](http://nginx.org/)  | [Tengine](http://tengine.taobao.org/) | [Httpd](http://httpd.apache.org/) | [Tomcat](http://tomcat.apache.org/) | [IIS](https://www.iis.net/) | [宝塔](https://www.bt.cn/)  | 
+| __*WEB服务__ | [Nginx](https://nginx.org/)  | [Tengine](https://tengine.taobao.org/) | [Httpd](https://httpd.apache.org/) | [Tomcat](https://tomcat.apache.org/) | [IIS](https://www.iis.net/) | [宝塔](https://www.bt.cn/)  | 
 | :----------: | :-----------: | :----------: | :-----------: | :----------: | :-----------: | :----------: | 
-| ***历史版本下载*** | [Version-Nginx](http://nginx.org/en/download.html) | [Version-Tengine]() | [Version-Httpd]() | [Version-Tomcat]() | [Version-IIS]() | [Version-宝塔]() |
-| ***使用帮助手册*** | [Doc-Nginx](http://nginx.org/en/docs/) | [Doc-Tengine]() | [Doc-Httpd]() | [Doc-Tomcat]() | [Doc-IIS]() | [Doc-宝塔]() |
-| ***常见故障处理*** | [FAQ-Nginx](http://nginx.org/en/docs/faq.html) | [FAQ-Tengine]() | [FAQ-Httpd]() | [FAQ-Tomcat]() | [FAQ-IIS]() | [FAQ-宝塔]() |
-| ***相关书籍资料*** | [PDF-Nginx](http://nginx.org/en/books.html) | [PDF-Tengine]() | [PDF-Httpd]() | [PDF-Tomcat]() | [PDF-IIS]() | [PDF-宝塔]() |
-| ***漏洞修复情况*** | [Bug-Nginx](http://nginx.org/en/security_advisories.html) | [Bug-Tengine]() | [Bug-Httpd]() | [Bug-Tomcat]() | [Bug-IIS]() | [Bug-宝塔]() |
-| ***项目源码地址*** | [SourceCode-Nginx](https://trac.nginx.org/nginx/browser?_ga=2.197435695.1080274919.1593757551-622746952.1593600593) | [SourceCode-Tengine]() | [SourceCode-Httpd]() | [SourceCode-Tomcat]() | [SourceCode-IIS]() | [SourceCode-宝塔]() |
+| ***历史版本下载*** | [Version-Nginx](https://nginx.org/en/download.html) | [Version-Tengine](https://tengine.taobao.org/download_cn.html) | [Version-Httpd]() | [Version-Tomcat]() | [Version-IIS]() | [Version-宝塔]() |
+| ***使用帮助手册*** | [Doc-Nginx](https://nginx.org/en/docs/) | [Doc-Tengine](https://tengine.taobao.org/documentation_cn.html) | [Doc-Httpd]() | [Doc-Tomcat]() | [Doc-IIS]() | [Doc-宝塔]() |
+| ***常见故障处理*** | [FAQ-Nginx](https://nginx.org/en/docs/faq.html) | [FAQ-Tengine](https://tengine.taobao.org/faq_cn.html) | [FAQ-Httpd]() | [FAQ-Tomcat]() | [FAQ-IIS]() | [FAQ-宝塔]() |
+| ***相关书籍资料*** | [PDF-Nginx](https://nginx.org/en/books.html) | [PDF-Tengine](https://tengine.taobao.org/book/) | [PDF-Httpd]() | [PDF-Tomcat]() | [PDF-IIS]() | [PDF-宝塔]() |
+| ***漏洞修复情况*** | [Bug-Nginx](http://nginx.org/en/security_advisories.html) | [Bug-Tengine](https://tengine.taobao.org/changelog_cn.html) | [Bug-Httpd]() | [Bug-Tomcat]() | [Bug-IIS]() | [Bug-宝塔]() |
+| ***项目源码地址*** | [SourceCode-Nginx](https://trac.nginx.org/nginx/browser?_ga=2.197435695.1080274919.1593757551-622746952.1593600593) | [SourceCode-Tengine](https://tengine.taobao.org/source_cn.html) | [SourceCode-Httpd]() | [SourceCode-Tomcat]() | [SourceCode-IIS]() | [SourceCode-宝塔]() |
 
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
 
 
-| 数据库服务 | [MySQL](https://www.mysql.com/)  | [MyCat](http://mycat.org.cn/) | [MariaDB](https://mariadb.org/) | [Redis](https://redis.io/) | [MongDB](https://www.mongodb.com/) | [PhpMyAdmin](https://www.phpmyadmin.net/)  | 
+| 数据库服务 | [MySQL](https://www.mysql.com/)  | [MyCat](https://mycat.org.cn/) | [MariaDB](https://mariadb.org/) | [Redis](https://redis.io/) | [MongDB](https://www.mongodb.com/) | [PhpMyAdmin](https://www.phpmyadmin.net/)  | 
 | :----------: | :-----------: | :----------: | :-----------: | :----------: | :-----------: | :----------: | 
 | ***历史版本下载*** | [Version-MySQL](http://nginx.org/en/download.html) | [Version-MyCat]() | [Version-MariaDB]() | [Version-Redis]() | [Version-MongDB]() | [Version-PhpMyAdmin]() |
 | ***使用帮助手册*** | [Doc-MySQL]() | [Doc-MyCat]() | [Doc-MariaDB]() | [Doc-Redis]() | [Doc-MongDB]() | [Doc-PhpMyAdmin]() |
