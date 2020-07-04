@@ -33,5 +33,5 @@
 
 [test](http://showterm.io/7b5f8d42ba021511e627e)
 
-<kbd>:restroom:=:neckbeard:直男:neckbeard:</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd>
+<kbd>__:restroom:=:neckbeard:直男:neckbeard:__</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd>
 
