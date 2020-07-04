@@ -26,4 +26,4 @@
 
 
 
-[![asciicast](https://asciinema.org/a/335029.svg)](https://asciinema.org/a/335029)
+[![asciicast](https://asciinema.org/a/335029.svg)](https://raw.githack.com/benniao1996/1996/master/index.html)
