@@ -27,9 +27,18 @@
 
 
 [__index.html__](https://raw.githack.com/benniao1996/1996/master/index.html)
+### 块引用有多级结构
+#### 语法
 ```
-├── [index.html](www.baidu.com)
-├── LICENSE
-├── README.md
-└── README.md.back
+> 数据结构
+>> 树
+>>> 二叉树
+>>>> 平衡二叉树
+>>>>> 满二叉树
 ```
+#### 效果
+> 数据结构
+>> 树
+>>> 二叉树
+>>>> 平衡二叉树
+>>>>> 满二叉树
