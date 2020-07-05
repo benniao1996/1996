@@ -1,4 +1,4 @@
-# __[:sunglasses:工作笔记:sunglasses:](https://raw.githack.com/benniao1996/1996/master/index.html)__
+# __[:sunglasses:工作笔记:sunglasses:](https://github.com/benniao1996/1996)__
 <kbd>[__:restroom:=:neckbeard:直男:neckbeard:__](https://github.com/benniao1996/1996)</kbd>+<kbd>[__:globe_with_meridians:=:cn:中国:cn:__](https://github.com/benniao1996/1996)</kbd>+<kbd>[__:couple_with_heart: = :secret:保密:secret:__](https://github.com/benniao1996/1996)</kbd>+<kbd>[__:airplane::airplane::airplane:Telegram = t.me/BenniaoHacker__](https://t.me/BenniaoHacker)</kbd>
 
 [~~__**:shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit: :shit:**__~~](https://t.me/BenniaoHacker)
