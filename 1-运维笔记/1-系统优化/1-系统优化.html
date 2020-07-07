@@ -299,6 +299,203 @@ fi
 # 外网地址 内网地址
 
 8.服务器时间和时区
+修改时区
+1)使用tzselect设置时区
+2)复制相应的时区文件，替换系统默认时区
+  cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+3)将当前时间写入BIOS永久生效（避免重启后失效）
+  hwclock
+4)centos /etc/sysconfig/clock
+  ubuntu /etc/timezone
+
+一．ntp服务搭建
+
+1.安装软件
+
+yum install ntp     #服务器程序
+
+yum install ntpdate  #自动更新时间服务
+
+2.启动服务
+
+chkconfig --level 35 ntpd on  
+
+chkconfig --level 35 ntpdate on  
+
+service ntpd start
+#ntpd服务不能和ntpdate服务同时启动
+
+service ntpdate stop
+# ntpd服务不能和ntpdate服务同时启动
+ntpd与ntpdate在更新时间时是有的区别。ntpd不仅仅是时间同步服务器，他还可以做客户端与标准时间服务器进行同步时间，而且是平滑同步，并非ntpdate立即同步，在生产环境中慎用ntpdate，也正如此两者不可同时运行。
+
+3.确认时间同步
+
+ntptime && date && hwclock --show && date +"%Y-%m-%d %H:%M:%S"
+
+d<字符串>：显示字符串所指的日期与时间。字符串前后必须加上双引号；
+date -d "1 day ago" +"%Y-%m-%d"     ago是昨天
+date -d "1 day" +"%Y-%m-%d"         不加参数是明天
+以下使用数字表示前后多少天的加减
+date +%Y%m%d #显示前天年月日 
+date -d "+1 day" +%F   #显示前一天的日期  %F就是%Y-%m-%d
+date -d "-1 day" +%F   #显示后一天的日期   
+date -d "-1 month" +F  #显示上一月的日期 
+date -d "+1 month" +F  #显示下一月的日期 
+date -d "-1 year" +F   #显示前一年的日期 
+date -d "+1 year" +F   #显示下一年的日期
+
+-s<字符串>：根据字符串来设置日期与时间。字符串前后必须加上双引号； 
+date -s 01:01:01 #设置具体时间，不会对日期做更改 
+date -s "01:01:01 2012-05-23" #这样可以设置全部时间 
+date -s "01:01:01 20120523"   #这样可以设置全部时间 
+date -s "2012-05-23 01:01:01" #这样可以设置全部时间 
+date -s "20120523 01:01:01"   #这样可以设置全部时间
+
+默认云服务器有同步的时间服务器
+修改时间 date
+硬件时间 hwclock --show
+同步公有时间服务器，可搭配任务计划，阿里云的时间服务器ntp.aliyun.com
+yum -y install ntp ntpdate
+chkconfig --level 35 ntpd on
+chkconfig --level 35 ntpdate on
+service ntpd start
+service ntpdate stop
+ntptime
+注意；如果出现ntpdate[24325]: the NTP socket is in use, exiting，需要systemctl stop ntpd.service停止，然后同步，之后再启动，阿里云服务器默认同步阿里云时间服务器
+
+附赠当前任务的执行时间脚本
+#!/bin/bash
+start=$(date +%s)   # 1528437613
+nmap man.linuxde.net &> /dev/null
+end=$(date +%s)
+difference=$(( end - start ))
+echo $difference seconds.
+
+任务计划使用
+cat /var/spool/cron/root 可直接修改配置文件，注意重启／reload
+crontab -e
+crontab -l -u root #查看root用户
+基本格式 :
+*　　*　　*　　*　　*　　command
+分　 时　 日　 月　 周　 命令
+第1列表示分钟1～59 每分钟用*或者 */1表示
+第2列表示小时1～23（0表示0点）
+第3列表示日期1～31
+第4列表示月份1～12
+第5列标识号星期0～6（0表示星期天）
+第6列要运行的命令
+每月1、10、22日的4 : 45重启apache
+45 4 1,10,22 * * /usr/local/etc/rc.d/lighttpd restart
+每天18 : 00至23 : 00之间每隔30分钟重启apache
+0,30 18-23 * * * /usr/local/etc/rc.d/lighttpd restart
+每月的4号与每周一到周三的11点重启apache
+0 11 4 * mon-wed /usr/local/etc/rc.d/lighttpd restart
+晚上11点到早上7点之间，每隔一小时重启apache
+* 23-7/1 * * * /usr/local/etc/rc.d/lighttpd restart
+
+9.修改系统启动服务
+systemctl 是管制服务的主要工具,它整合了chkconfig 与 service功能于一体。
+
+systemctl is-enabled iptables.service
+#查询防火墙是否开机启动
+
+systemctl restart sshd
+#有可能不需要加service
+
+systemctl is-enabled XXX.service
+#查询服务是否开机启动
+
+systemctl enable XXX.service
+#开机运行服务
+
+systemctl disable XXX.service
+#取消开机运行
+
+systemctl start XXX.service
+#启动服务
+
+systemctl stop XXX.service
+#停止服务
+
+systemctl restart XXX.service
+#重启服务
+
+systemctl reload XXX.service
+#重新加载服务配置文件 (改完配置文件需要重载才生效)
+
+systemctl status XXX.service
+#查询服务运行状态
+
+systemctl --failed
+#显示启动失败的服务
+
+10.清理磁盘垃圾node节点
+centos7默认安装了postfix邮件服务，因此邮件位置 /var/spool/postfix/maildrop/会存在垃圾文件，如果长时间不清理，会导致inode数量不够用，从而无法存放文件
+
+11.修改系统字符编码支持中文
+修改字符编码，默认是LANG=en_US.UTF-8
+修改该文件之前，可以先查看已经安装的语言包：
+locale -a | grep zh
+可通过grep过滤查看是否有中文语言包
+如果没有语言包
+
+yum -y install kde-l10n-Chinese glibc-common
+
+安装完成后通过vi命令编辑配置文件
+vim /etc/locale.conf
+LANG="zh_CN.UTF-8"
+source /etc/locale.conf
+
+12.隐藏内核信息
+# cat /etc/redhat-release 
+
+CentOS Linux release 7.7.1908 (Core)
+
+echo 'Windows XP benniao (笨鸟)' > /etc/redhat-release
+
+Windows XP benniao (笨鸟)
+# cat /etc/issue
+\S
+Kernel \r on an \m
+
+13.锁定关键核心目录
+加锁，不可修改加锁文件
+[root@jokerpro ~]# chattr +i /etc/passwd /etc/resolv.conf /etc/sudoers /etc/ssh/sshd_config
+[root@jokerpro ~]# lsattr /etc/passwd /etc/resolv.conf /etc/sudoers /etc/ssh/sshd_config
+----i----------- /etc/passwd
+----i----------- /etc/resolv.conf
+----i----------- /etc/sudoers
+----i----------- /etc/ssh/sshd_config
+去锁，可以修改文件
+[root@jokerpro ~]# chattr -i /etc/passwd 
+[root@jokerpro ~]# lsattr /etc/passwd   
+-------------e-- /etc/passwd
+
+14.免疫死亡之ping
+# 开启禁止ping
+echo "net.ipv4.icmp_echo_ignore_all=1"  1>> /etc/sysctl.conf && sysctl -p
+# 关闭禁止ping
+首先要删除 /etc/sysctl.conf 里面net.ipv4.icmp_echo_ignore_all = 1
+之后执行如下命令
+echo 0 1> /proc/sys/net/ipv4/icmp_echo_ignore_all
+# 后续就可以通过更改 cat  /proc/sys/net/ipv4/icmp_echo_ignore_all文件
+关闭 1 开启
+
+15.历史记录操作
+# 以下都是临时生效，默认1000不需要更改
+# 设置的是闲置账号的超时时间
+export TMOUT=10 10秒后提示超时时间
+# 设置终端history显示条数
+export HISTSIZE=5 只显示最近5条信息
+# 上面的终端显示对应的是 cat ~/.bash_history 
+export HISTFILESIZE=5 该文件只保存5条信息
+# 清空历史记录
+history -c
+# 指定条数删除
+history -d 历史记录条属
+
+
 
 
 </o_></pre>
