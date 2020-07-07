@@ -24,22 +24,3 @@
 | ***`漏洞修复情况`*** | [Bug-MySQL](https://www.oracle.com/search/results?cat=mysql&Ntk=SI-ALL5&Ntt=bug) | [Bug-MyCat](https://github.com/MyCATApache/Mycat-download/blob/master/Changelog.md) | [Bug-MariaDB](https://mariadb.org/?s=bug) | [Bug-Redis](https://segmentfault.com/a/1190000018878466?utm_source=tag-newest#item-5) | [Bug-MongDB]() | [Bug-PhpMyAdmin]() |
 | ***`项目源码地址`*** | [SourceCode-MySQL](https://github.com/mysql) | [SourceCode-MyCat](https://github.com/MyCATApache/Mycat2) | [SourceCode-MariaDB](https://github.com/MariaDB) | [SourceCode-Redis](https://github.com/redis-io/redis) | [SourceCode-MongDB]() | [SourceCode-PhpMyAdmin]() |
 
-
-
-[__index.html__](https://raw.githack.com/benniao1996/1996/master/index.html)
-### 块引用有多级结构
-#### 语法
-```
-> 数据结构
->> 树
->>> 二叉树
->>>> 平衡二叉树
->>>>> 满二叉树
-```
-#### 效果
-> 数据结构
->> 树
->>> 二叉树
->>>> 平衡二叉树
->>>>> 满二叉树
-
