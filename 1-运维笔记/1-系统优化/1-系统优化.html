@@ -1,0 +1,149 @@
+
+<!-- saved from url=(0030)https://github.com/benniao1996/1996/index.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+    BODY {
+     color: #fff;
+     background: #000;
+     font-family: sans-serif;
+     margin-left: 3%;
+     margin-right: 3%;
+    }
+    </style>
+</head>
+<body>
+<font color="chartreuse">
+<pre>
+                .-~~~~~~~~~-._       _.-~~~~~~~~~-.
+            __.'              ~.   .~              `.__
+          .'//                  \./                  \\`.
+        .'//                     |                     \\`.
+      .'// .-~"""""""~~~~-._     |     _,-~~~~"""""""~-. \\`.
+    .'//.-"                 `-.  |  .-'                 "-.\\`.
+  .'//______.============-..   \ | /   ..-============.______\\`.
+.'______________________________\|/______________________________`.
+系统优化
+
+1.修改ip
+[root@localhost ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0         #网卡名字
+BOOTPROTO=static    #静态IP地址获取状态 如：DHCP表示自动获取IP地址
+IPADDR=192.168.1.113            #IP地址
+NETMASK=255.255.255.0           #子网掩码
+ONBOOT=yes#引导时是否激活
+GATEWAY=192.168.1.1
+[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+BOOTPROTO=static
+IPADDR=192.168.1.113
+NETMASK=255.255.255.0
+ONBOOT=yes
+GATEWAY=192.168.1.1
+[root@localhost ~]# vi /etc/sysconfig/network
+HOSTNAME=c64     #修改主机名，重启生效
+GATEWAY=192.168.1.1    #修改默认网关,如果上面eth0里面不配置网关的话，默认就使用这里的网关了。
+[root@localhost ~]# cat /etc/sysconfig/network
+HOSTNAME=c64
+GATEWAY=192.168.1.1
+
+2.修改DNS
+[root@localhost ~]# vi /etc/resolv.conf   #修改DNS信息
+nameserver 114.114.114.114
+nameserver 8.8.8.8
+[root@localhost ~]# cat /etc/resolv.conf  #查看修改后的DNS信息
+nameserver 114.114.114.114
+nameserver 8.8.8.8
+[root@localhost ~]# service network restart   #重启网卡，生效
+重启网卡，也可以用下面的命令
+[root@localhost ~]# /etc/init.d/network restart
+
+3.修改主机名
+[root@localhost ~]# hostnamectl set-hsotname ip-where-work
+
+4.关闭selinux防火墙
+默认云服务器都是关着的
+sed -i "s/=enforcing/=disabled/g" /etc/selinux/config
+
+5.修改防火墙iptables
+CentOS切换为iptables防火墙
+firewall-cmd --state 查看防火墙状态
+切换到iptables首先应该关掉默认的firewalld，然后安装iptables服务。
+1、关闭firewall：
+systemctl stop firewalld.service 
+systemctl disable firewalld.service #禁止firewall开机启动
+2、安装iptables防火墙
+yum install iptables-services #安装
+service iptables save
+3、编辑iptables防火墙配置
+vi /etc/sysconfig/iptables #编辑防火墙配置文件
+下边是一个完整的配置文件：
+systemctl start iptables.service  #开启
+systemctl enable iptables.service #设置防火墙开机启动
+
+#!/bin/bash
+cat > fwiptables.sh << "EOF"
+#!/bin/bash
+#fwiptables
+IPT=`which iptables`
+$IPT -F
+$IPT -X
+$IPT -P INPUT DROP
+$IPT -P FORWARD ACCEPT
+$IPT -P OUTPUT ACCEPT
+$IPT -N syn-flood
+##本地回环 内网允许任何
+$IPT -A INPUT -i lo -j ACCEPT
+$IPT -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+$IPT -A INPUT -m state --state NEW -s 10.0.0.0/8 -j ACCEPT
+# ssh 端口开放
+$IPT -A INPUT -m state --state NEW -p tcp --dport 23333 -m comment --comment "ssh 端口" -j ACCEPT
+# 根据需求填写相应的端口
+$IPT -A INPUT -p tcp -m multiport --dports 80,443 -m comment --comment "网页ssl端口 " -j ACCEPT
+# zabbix监控地址
+$IPT -A INPUT -p tcp -m state --state NEW -m tcp --dport 10050 -m comment --comment "zabbix监控" -j ACCEPT
+# 58138
+#$IPT -A INPUT -p tcp -m state --state NEW -m tcp --dport 58138 -m comment --comment "自定义业务端口" -j ACCEPT
+# mysql 端口
+$IPT -A INPUT -p tcp -m state --state NEW -m tcp --dport 3306 -m comment --comment "mysql 端口" -j ACCEPT
+# mongod 端口
+$IPT -A INPUT -p tcp -m state --state NEW -m tcp --dport 27017 -m comment --comment "mongod 端口" -j ACCEPT
+# redis 端口
+$IPT -A INPUT -p tcp -m state --state NEW -m tcp --dport 6379 -m comment --comment "redis 端口" -j ACCEPT
+# 局域网 访问
+#$IPT -A INPUT -p tcp -s 192.168.1.0/24 -m comment --comment "局域网" -j ACCEPT
+# 公网 访问
+$IPT -A INPUT -p tcp -s 111.111.111.0/24 -m comment --comment "公网" -j ACCEPT
+#$IPT -A INPUT -p tcp -s 321.321.321.0/24 -m comment --comment "公网2" -j ACCEPT
+#$IPT -A INPUT -p tcp -s 123.123.123.0/24 -m comment --comment "公网3" -j ACCEPT
+
+# 以下规则是屏蔽以 youtube.com 为主的所有一级 二级 三级等域名。
+#iptables -A OUTPUT -m string --string "youtube.com" --algo bm --to 65535 -j DROP
+#$IPT -A OUTPUT -m string --string "6x66.com" --algo bm --to 65535 -j DROP
+#$IPT -A OUTPUT -m string --string "2s11.com" --algo bm --to 65535 -j DROP
+#$IPT -A OUTPUT -m string --string "aresboot.com" --algo bm --to 65535 -j DROP
+# 添加屏蔽规则
+#iptables -D OUTPUT -m string --string "youtube.com" --algo bm --to 65535 -j DROP
+# 删除屏蔽规则，上面添加的代码是什么样，那么删除的代码就是把 -A 改成 -D
+
+# ICMP 规则控制
+$IPT -A INPUT -p icmp -m limit --limit 100/sec --limit-burst 100 -j ACCEPT
+$IPT -A INPUT -p icmp -m limit --limit 1/s --limit-burst 10 -j ACCEPT
+# DOS防护
+$IPT -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j syn-flood
+$IPT -A INPUT -j REJECT --reject-with icmp-host-prohibited
+$IPT -A syn-flood -p tcp -m limit --limit 3/sec --limit-burst 6 -j RETURN
+$IPT -A syn-flood -j REJECT --reject-with icmp-port-unreachable
+$IPT -L
+service iptables save
+EOF
+echo "fwiptables脚本写入成功"
+chmod +x fwiptables.sh && cp fwiptables.sh /root/ && sh /root/fwiptables.sh
+echo ""
+
+6.
+
+</o_></pre>
+</font>
+<svg class="fatkun-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5892"><path d="M494.933333 782.933333c2.133333 2.133333 4.266667 4.266667 8.533334 6.4h8.533333c6.4 0 10.666667-2.133333 14.933333-6.4l2.133334-2.133333 275.2-275.2c8.533333-8.533333 8.533333-21.333333 0-29.866667-8.533333-8.533333-21.333333-8.533333-29.866667 0L533.333333 716.8V128c0-12.8-8.533333-21.333333-21.333333-21.333333s-21.333333 8.533333-21.333333 21.333333v588.8L249.6 475.733333c-8.533333-8.533333-21.333333-8.533333-29.866667 0-8.533333 8.533333-8.533333 21.333333 0 29.866667l275.2 277.333333zM853.333333 874.666667H172.8c-12.8 0-21.333333 8.533333-21.333333 21.333333s8.533333 21.333333 21.333333 21.333333H853.333333c12.8 0 21.333333-8.533333 21.333334-21.333333s-10.666667-21.333333-21.333334-21.333333z" p-id="5893"></path></svg>
+</body>
+</html>
