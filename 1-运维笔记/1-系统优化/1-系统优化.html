@@ -60,11 +60,24 @@ nameserver 8.8.8.8
 3.修改主机名
 [root@localhost ~]# hostnamectl set-hsotname ip-where-work
 
-4.关闭selinux防火墙
+4.Centos7-重建yum源
+#!/bin/bash
+cat > Base.repo.sh << "EOF"
+yum -y install wget
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+yum clean all
+yum makecache
+EOF
+echo "重建yum源脚本写入成功"
+echo "脚本执行中"
+sh Base.repo.sh
+
+5.关闭selinux防火墙
 默认云服务器都是关着的
 sed -i "s/=enforcing/=disabled/g" /etc/selinux/config
 
-5.修改防火墙iptables
+6.修改防火墙iptables
 CentOS切换为iptables防火墙
 firewall-cmd --state 查看防火墙状态
 切换到iptables首先应该关掉默认的firewalld，然后安装iptables服务。
@@ -137,10 +150,156 @@ $IPT -L
 service iptables save
 EOF
 echo "fwiptables脚本写入成功"
+echo "脚本执行中"
 chmod +x fwiptables.sh && cp fwiptables.sh /root/ && sh /root/fwiptables.sh
-echo ""
 
-6.
+7.权限密钥
+一，ssh建立链接过程
+1.服务器上产生公钥
+2.客户端带着私钥访问服务器
+3.服务器上公钥返回给客户端，并且用自己的公钥和客户端发来的私钥生成key pair
+4.客户端再次带着自己的私钥和服务器发来的公钥生成key pair访问服务器
+5.服务器用自己的key pair和客户端的key pair进行比对，建立链接
+注意：
+在第一次链接的时候，会在本地生成密钥文件/.ssh/known_hosts(可以存放多个)
+
+二，ssh生成密钥对过程
+1.客户端 ssh-keygen -t dsa
+生成2个文件，id_dsa(私钥)，id_dsa_pub(公钥)
+2.客户端 发送公钥到服务器端
+3.客户端 带着公钥发送链接请求
+4.验证公钥
+5.服务器 用公钥加密质询，发送至客户端
+6.客户端 用私钥解密质询
+7.客户端 将解密后的质询发送回服务器
+8.服务器 验证质询
+9.验证通过，链接建立
+
+三，sshd_config配置文件可修改地方
+1.#Port 22
+2.PermitRootLogin yes  默认是打开的，就是允许客户端用root链接
+3.#PermitEmptyPasswords no 是否允许空密码
+下面是可以解决链接慢
+1.UseDNS no 拒绝域名解析
+2.GSSAPICleanupCredentials no
+
+四，客户端链接ssh基本语法
+1.指定端口的链接，会跳到链接的机子上
+ssh -p22 user@ip -p指定端口，默认即位22
+2.在链接的机子上执行命令，不会跳到链接的机子上
+ssh -p22 user@ip command
+
+五，基于ssh加密的scp命令
+1.推：scp -P22 /etc/file user@ip:/tmp -P这个指定端口是大写p
+2.拉：scp -P22 user@ip:/tmp/file /etc/
+3.参数介绍：
+-r递归，表示拷贝目录
+-p表示拷贝前后保持文件目录属性
+-l limit限制速度
+通常scp -P22 -rp 即可
+4.scp每次都是全量的拷贝，不同于rsync的增量
+
+非交互式创建密钥
+我们手动创建是通过,ssh-keygen -t dsa，然后回车
+1.自动创建
+ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa > /dev/null 2>&1
+2.将公钥发送到远程主机
+ssh-copy-id -i .ssh/id_dsa.pub "-p22 user@ip"
+发送过去后，远程主机会产生.ssh/authorized_keys文件，权限是600，本地会多出.ssh/known_hosts文件
+提权执行
+1.直接root账号，将sshd_config里面允许root登录
+2.sudo提权实现没有权限的用户拷贝
+首先，配置sudoers:
+终端命令；visudo，相当于配置/etc/sudoers
+## Allow root to run any commands anywhere
+用户或者组   机器=授权角色  可执行命令
+root    ALL=(ALL)       ALL
+joker   ALL=(ALL)       /usr/bin/rsync
+@group  ALL=(ALL)       ALL
+user    ALL=(ALL)       NOPASSWD:ALL
+解释：
+第一个ALL代表机器，就是所有机器，第二个ALL代表所有角色，第三个ALL代表可以执行所有命令，NOPASSWD代表提权命令时不需要提示密码
+然后，加载sudoers文件
+visudo -C
+最后，用joker用户通过基于ssh的rsync发送文件
+用户或者组在执行授权的特殊权限命令时后格式为sudo 命令，切换到root格式为 sudo su - ，需要输入当前用户的密码，而不是root密码
+ssh -p22 -t user@ip sudo rsync ~/hosts /etc/hosts
+注意；
+如果，提示命令找不到，很可能是环境变量导致
+root下，echo $path
+user下，echo $path
+在user下，修改vi ~/.bash_profile，将/usr/local/sbin:/sbin:/usr/sbin加入进去
+3.利用suid实现没有权限用户拷贝（了解即可）
+chmod u+s 'which rsync'
+附赠基于ssh的scp推送脚本
+
+#!/bin/bash
+if [ $# -ne 2 ];then
+    echo "usage:/bin/bash $0 {avg1 avg2}"
+    exit 1
+fi
+. /etc/init.d/functions
+for ip in 1 2 3
+do
+scp -p22 file user@ip:/tmp > /dev/null 2&1
+if [ $? -eq 0 ];then
+    action "fenfa hosts ip" /bin/true
+else
+    action "fenfa hosts ip" /bin/false
+fi
+done
+
+非交互模式产生密钥
+
+1.yum install expect -y
+2.mkpasswd -l 10
+参数介绍，生成随机字符串，-l是指生成多少个字符
+3.简单介绍expect的过程
+首先，还是需要手动ssh-keygen生成私钥，公钥
+然后，spawn ssh-copy-id -i id_dsa.pub "-p 22 user@ip"
+     expect {
+         "yes/no" {send "yes\r":exp_continue}
+         "*password" {send "123\r"}
+     }
+     expect eof
+
+附赠基于expect免密钥分发脚本
+
+#!/bin/bash
+# The author is joker, which is used to manage the host.
+expect_order=`which expect 1>/dev/null 2>&1`
+if [ $? -eq 1 ];then
+    yum install expect -y
+    sleep 1
+    sh $0
+else
+    Distribute(){
+    for IP in $(cat /service/script/distribute_ip.txt);do
+        Passwd=$1
+        USER=$2
+        expect -c "
+            spawn ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 $USER@$IP
+                expect {
+                    \"*yes/no*\" {send \"yes\r\"; exp_continue}
+                    \"*password*\" {send \"$Passwd\r\";exp_continue}
+                    \"*password*\" {send \"$Passwd\r\";}
+            }
+        "
+        if [ $? -eq 0 ];then
+            echo -e "\033[32m 绿色字,ssh $IP 链接成功 \033[0m"
+        else
+            echo -e "\033[31m 红色字,ssh $IP 链接失败，请检查原因 \033[0m"
+        fi
+    done
+    }
+    Distribute "Poppy1115" root
+fi
+###########################################
+# distribute_ip.txt，注意该文件适合在同一个地区使用，内网互动,否则去除内网地址
+# 外网地址 内网地址
+
+8.服务器时间和时区
+
 
 </o_></pre>
 </font>
