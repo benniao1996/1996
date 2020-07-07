@@ -22,9 +22,9 @@
     .'//.-"                 `-.  |  .-'                 "-.\\`.
   .'//______.============-..   \ | /   ..-============.______\\`.
 .'______________________________\|/______________________________`.
-<details>
-<summary>系统优化</summary>
-<p>1.修改ip
+系统优化
+
+1.修改ip
 [root@localhost ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
 DEVICE=eth0         #网卡名字
 BOOTPROTO=static    #静态IP地址获取状态 如：DHCP表示自动获取IP地址
@@ -44,8 +44,8 @@ HOSTNAME=c64     #修改主机名，重启生效
 GATEWAY=192.168.1.1    #修改默认网关,如果上面eth0里面不配置网关的话，默认就使用这里的网关了。
 [root@localhost ~]# cat /etc/sysconfig/network
 HOSTNAME=c64
-GATEWAY=192.168.1.1<p>
-</details>
+GATEWAY=192.168.1.1
+
 2.修改DNS
 [root@localhost ~]# vi /etc/resolv.conf   #修改DNS信息
 nameserver 114.114.114.114
