@@ -1,0 +1,65 @@
+.
+├── 1-运维笔记
+│   ├── 1-系统优化
+│   │   ├── 1-系统优化.html
+│   │   └── 1-系统优化.html.back
+│   ├── 2-项目仓库
+│   │   └── 1.txt
+│   ├── 3-网页服务
+│   │   └── 1.txt
+│   ├── 4-数据库服务
+│   │   └── 1.txt
+│   ├── 4-消息队列
+│   │   └── 1.txt
+│   ├── 5-自动化运维
+│   │   └── 1.txt
+│   ├── 6-docker容器化
+│   │   ├── 1.txt
+│   │   ├── 2-k8s容器编排
+│   │   │   └── 1.txt
+│   │   └── 3-k4t国产容器编排系统
+│   │       └── 1.txt
+│   ├── 7-hadoop大数据
+│   │   └── 1.txt
+│   ├── 8-zabbix监控
+│   │   └── 1.txt
+│   └── 9-日志分析
+│       └── 1.txt
+├── 2-骇客技术
+│   ├── 1-CTF资源库
+│   │   ├── back
+│   │   │   ├── CTF资源库_CTF工具下载_CTF工具包_CTF工具集合_files
+│   │   │   │   ├── core.php
+│   │   │   │   ├── hm.js
+│   │   │   │   ├── jquery-1.js
+│   │   │   │   ├── jquery.js
+│   │   │   │   ├── light.js
+│   │   │   │   ├── push.js
+│   │   │   │   ├── style(1).css
+│   │   │   │   ├── style.css
+│   │   │   │   ├── url.html
+│   │   │   │   └── z_stat.php
+│   │   │   └── CTF资源库_CTF工具下载_CTF工具包_CTF工具集合.html
+│   │   ├── core.php
+│   │   ├── CTF资源库_CTF工具下载_CTF工具包_CTF工具集合.html
+│   │   ├── hm.js
+│   │   ├── jquery-1.js
+│   │   ├── jquery.js
+│   │   ├── light.js
+│   │   ├── push.js
+│   │   ├── style(1).css
+│   │   ├── style.css
+│   │   ├── url.html
+│   │   └── z_stat.php
+│   ├── 2-tor自由上网
+│   │   └── 1.txt
+│   └── back.zip
+├── benniao.html
+├── benniao.html-5
+├── index.html
+├── index.html.back
+├── LICENSE
+├── README.md
+└── test.txt
+
+18 directories, 44 files
