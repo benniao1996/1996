@@ -106,8 +106,10 @@ vi /etc/sysconfig/iptables #编辑防火墙配置文件
 下边是一个完整的配置文件：
 systemctl start iptables.service  #开启
 systemctl enable iptables.service #设置防火墙开机启动
-
+    </h2></p></details>
+    <details><summary><center><h1>
 #!/bin/bash
+    </summary></center></h1><p><h2>
 cat > fwiptables.sh << "EOF"
 #!/bin/bash
 #fwiptables
@@ -166,7 +168,6 @@ EOF
 echo "fwiptables脚本写入成功"
 echo "脚本执行中"
 chmod +x fwiptables.sh && cp fwiptables.sh /root/ && sh /root/fwiptables.sh
-
     </h2></p></details>
     <details><summary><center><h1>
 7.权限密钥 
