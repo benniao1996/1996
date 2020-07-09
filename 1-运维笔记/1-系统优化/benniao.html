@@ -21,35 +21,14 @@
 <body>
 <font color="chartreuse">
 <pre>
-    <center>
-    <h1><span>系统优化</span></h1>
-    </center>
-
+<details>
+    <summary><center>
+    <h1>系统优化</h1>
+    </summary></center>
+<p>
     <details><summary><h2><center>
     1.修改ip  
-    <p><summary><h2>
-[root@localhost ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
-DEVICE=eth0         #网卡名字
-BOOTPROTO=static    #静态IP地址获取状态 如：DHCP表示自动获取IP地址
-IPADDR=192.168.1.113            #IP地址
-NETMASK=255.255.255.0           #子网掩码
-ONBOOT=yes#引导时是否激活
-GATEWAY=192.168.1.1
-[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
-DEVICE=eth0
-BOOTPROTO=static
-IPADDR=192.168.1.113
-NETMASK=255.255.255.0
-ONBOOT=yes
-GATEWAY=192.168.1.1
-[root@localhost ~]# vi /etc/sysconfig/network
-HOSTNAME=c64     #修改主机名，重启生效
-GATEWAY=192.168.1.1    #修改默认网关,如果上面eth0里面不配置网关的话，默认就使用这里的网关了。
-[root@localhost ~]# cat /etc/sysconfig/network
-HOSTNAME=c64
-GATEWAY=192.168.1.1
-    </p></summary></h2>
-    </details></summary></h2></center>
+    </summary></h2></center></details>
 
     <details><summary><h2><center>
     2.修改DNS
@@ -110,7 +89,8 @@ GATEWAY=192.168.1.1
     <details><summary><h2><center>
     16.内核网络参数调试
     </details></summary></h2></center>
-
+</p>
+</details>
 </o_>
 </pre>
 </font>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/jquery-1.8.2.js" type="text/javascript"></script>
+    <style type="text/css">
+        *{margin:0px;padding:0px;}
+        body{font-size:12px;}
+
+        .box{margin:10px;padding:10px;}
+        .box h3{margin:10px 0px;border-bottom:1px solid red;padding-bottom:10px;}
+        .box p{line-height:20px;}
+        strong{color:Red;margin-right:20px;}
+
+        .treebox{margin:10px;padding:10px;width:380px;}
+        .treebox ul{list-style:none;margin-left:15px;}
+        .treebox>ul{list-style:none;margin-left:0px;}
+        .treebox ul li{margin:12px 20px;}
+        .treebox ul li label{list-style:none;cursor:pointer;line-height:16px;display:block;padding-left:20px;}
+        .treebox ul li label.collapse{background-image:url(images/treeplus.gif);background-repeat:no-repeat;}
+        .treebox ul li label.expand{background-image:url(images/treeminus.gif);background-repeat:no-repeat;}
+        #panels dt{height:30px;line-height:30px;padding-left:10px;border:1px solid #aaccff;font-weight:bold;font-size:14px;background-color:#bb44aa;margin-top:-1px;cursor:pointer;}
+        #panels dd{height:230px;padding:10px;line-height:20px;border:1px solid #aaccff;margin-top:-1px;}
+
+    </style>
+  <script type="text/javascript">
+      $(function(){
+
+
+        $(".expand").click(function(){
+          //$(this).hide();
+         // $(this).children("li").hide();
+          //通过当前的元素，找到他的所有子孙
+          $(this).siblings().toggle();
+
+        });
+
+
+
+      });
+
+  </script>
+
+</head>
+<body>
+    <div class="box">
+        <h3><strong>选作</strong>本试题重点考察jquery构造树形控件，具体要求如下:</h3>
+        <p>
+            1.点击每个节点时，将其子节点显示或隐藏。<br />
+        </p>
+    </div>
+
+
+    <div class="treebox">
+        <ul>
+            <li>
+                <label class="expand">河北省</label>
+                <ul>
+                    <li><label>石家庄市</label></li>
+                    <li>
+                        <label class="expand">保定市</label>
+                        <ul>
+                            <li><label>望都县</label></li>
+                            <li><label>顺平县</label></li>
+                            <li><label>唐县</label></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label class="expand">重庆市</label>
+                <ul>
+                    <li>
+                        <label>沙坪坝区</label>
+                    </li>
+                    <li>
+                        <label>北碚区</label>
+                    </li>
+                    <li>
+                        <label>江北区</label>
+                    </li>
+                    <li>
+                        <label>南岸区</label>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label>北京市</label>
+            </li>
+        </ul>
+    </div>
+
+
+</body>
+</html>
