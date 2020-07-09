@@ -75,11 +75,11 @@ echo "重建yum源脚本写入成功"
 echo "脚本执行中"
 sh Base.repo.sh
 
-5.关闭selinux防火墙
+<p>5.关闭selinux防火墙</p>
 默认云服务器都是关着的
 sed -i "s/=enforcing/=disabled/g" /etc/selinux/config
 
-6.修改防火墙iptables
+<p>6.修改防火墙iptables</p>
 CentOS切换为iptables防火墙
 firewall-cmd --state 查看防火墙状态
 切换到iptables首先应该关掉默认的firewalld，然后安装iptables服务。
@@ -155,7 +155,7 @@ echo "fwiptables脚本写入成功"
 echo "脚本执行中"
 chmod +x fwiptables.sh && cp fwiptables.sh /root/ && sh /root/fwiptables.sh
 
-7.权限密钥
+<p>7.权限密钥</p>
 一，ssh建立链接过程
 1.服务器上产生公钥
 2.客户端带着私钥访问服务器
@@ -300,7 +300,7 @@ fi
 # distribute_ip.txt，注意该文件适合在同一个地区使用，内网互动,否则去除内网地址
 # 外网地址 内网地址
 
-8.服务器时间和时区
+<p>8.服务器时间和时区</p>
 修改时区
 1)使用tzselect设置时区
 2)复制相应的时区文件，替换系统默认时区
@@ -396,7 +396,7 @@ crontab -l -u root #查看root用户
 晚上11点到早上7点之间，每隔一小时重启apache
 * 23-7/1 * * * /usr/local/etc/rc.d/lighttpd restart
 
-9.修改系统启动服务
+<p>9.修改系统启动服务</p>
 systemctl 是管制服务的主要工具,它整合了chkconfig 与 service功能于一体。
 
 systemctl is-enabled iptables.service
@@ -432,10 +432,10 @@ systemctl status XXX.service
 systemctl --failed
 #显示启动失败的服务
 
-10.清理磁盘垃圾node节点
+<p>10.清理磁盘垃圾node节点</p>
 centos7默认安装了postfix邮件服务，因此邮件位置 /var/spool/postfix/maildrop/会存在垃圾文件，如果长时间不清理，会导致inode数量不够用，从而无法存放文件
 
-11.修改系统字符编码支持中文
+<p>11.修改系统字符编码支持中文</p>
 修改字符编码，默认是LANG=en_US.UTF-8
 修改该文件之前，可以先查看已经安装的语言包：
 locale -a | grep zh
@@ -449,7 +449,7 @@ vim /etc/locale.conf
 LANG="zh_CN.UTF-8"
 source /etc/locale.conf
 
-12.隐藏内核信息
+<p>12.隐藏内核信息</p>
 # cat /etc/redhat-release 
 
 CentOS Linux release 7.7.1908 (Core)
@@ -461,7 +461,7 @@ Windows XP benniao (笨鸟)
 \S
 Kernel \r on an \m
 
-13.锁定关键核心目录
+<p>13.锁定关键核心目录</p>
 加锁，不可修改加锁文件
 [root@jokerpro ~]# chattr +i /etc/passwd /etc/resolv.conf /etc/sudoers /etc/ssh/sshd_config
 [root@jokerpro ~]# lsattr /etc/passwd /etc/resolv.conf /etc/sudoers /etc/ssh/sshd_config
@@ -474,7 +474,7 @@ Kernel \r on an \m
 [root@jokerpro ~]# lsattr /etc/passwd   
 -------------e-- /etc/passwd
 
-14.免疫死亡之ping
+<p>14.免疫死亡之ping</p>
 # 开启禁止ping
 echo "net.ipv4.icmp_echo_ignore_all=1"  1>> /etc/sysctl.conf && sysctl -p
 # 关闭禁止ping
@@ -484,7 +484,7 @@ echo 0 1> /proc/sys/net/ipv4/icmp_echo_ignore_all
 # 后续就可以通过更改 cat  /proc/sys/net/ipv4/icmp_echo_ignore_all文件
 关闭 1 开启
 
-15.历史记录操作
+<p>15.历史记录操作</p>
 # 以下都是临时生效，默认1000不需要更改
 # 设置的是闲置账号的超时时间
 export TMOUT=10 10秒后提示超时时间
@@ -497,7 +497,7 @@ history -c
 # 指定条数删除
 history -d 历史记录条属
 
-16.内核网络参数调试
+<p>16.内核网络参数调试</p>
 
 #!/bin/bash
 
