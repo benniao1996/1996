@@ -17,54 +17,9 @@
     }
     pre:hover,
     </style>
-    </style>
-    <script type="text/javascript">
-var canvas = document.getElementById('canvas');
-		var ctx = canvas.getContext('2d');
-
-
-		canvas.height = window.innerHeight;
-		canvas.width = window.innerWidth;
-
-		var texts = '0123456789'.split('');
-
-		var fontSize = 16;
-		var columns = canvas.width/fontSize;
-		// 用于计算输出文字时坐标，所以长度即为列数
-		var drops = [];
-		//初始值
-		for(var x = 0; x < columns; x++){
-			drops[x] = 1;
-		}
-
-		function draw(){
-			//让背景逐渐由透明到不透明
-			ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
-			//文字颜色
-			ctx.fillStyle = '#0F0';
-			ctx.font = fontSize + 'px arial';
-			//逐行输出文字
-			for(var i = 0; i < drops.length; i++){
-				var text = texts[Math.floor(Math.random()*texts.length)];
-				ctx.fillText(text, i*fontSize, drops[i]*fontSize);
-
-				if(drops[i]*fontSize > canvas.height || Math.random() > 0.95){
-					drops[i] = 0;
-				}
-
-				drops[i]++;
-			}
-		}
-
-		setInterval(draw, 33);
-    </script>
-
 </head>
 <body>
 <font color="chartreuse">
-	<canvas id="canvas"></canvas>
-	<style type="text/css">
 <pre>
     <center>
     <h1><span>系统优化</span></h1>
@@ -72,6 +27,28 @@ var canvas = document.getElementById('canvas');
 
     <details><summary><h2><center>
     1.修改ip  
+    <summary><h2><center>
+    [root@localhost ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0         #网卡名字
+BOOTPROTO=static    #静态IP地址获取状态 如：DHCP表示自动获取IP地址
+IPADDR=192.168.1.113            #IP地址
+NETMASK=255.255.255.0           #子网掩码
+ONBOOT=yes#引导时是否激活
+GATEWAY=192.168.1.1
+[root@localhost ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+BOOTPROTO=static
+IPADDR=192.168.1.113
+NETMASK=255.255.255.0
+ONBOOT=yes
+GATEWAY=192.168.1.1
+[root@localhost ~]# vi /etc/sysconfig/network
+HOSTNAME=c64     #修改主机名，重启生效
+GATEWAY=192.168.1.1    #修改默认网关,如果上面eth0里面不配置网关的话，默认就使用这里的网关了。
+[root@localhost ~]# cat /etc/sysconfig/network
+HOSTNAME=c64
+GATEWAY=192.168.1.1
+    </summary></h2></center>
     </details></summary></h2></center>
 
     <details><summary><h2><center>
