@@ -93,5 +93,47 @@
 </o_>
 </pre>
 </font>
+<canvas id="q"></canvas>
+<script type="text/javascript" >
+var s = window.screen;
+var width = q.width = s.width;
+var height = q.height = s.height;
+var letters = Array(256).join(1).split('');
+var draw = function () {
+  q.getContext('2d').fillStyle='rgba(0,0,0,.05)';
+  q.getContext('2d').fillRect(0,0,width,height);
+  q.getContext('2d').fillStyle='#0F0';
+  letters.map(function(y_pos, index){
+    text = String.fromCharCode(3e4+Math.random()*33);
+    x_pos = index * 10;
+    q.getContext('2d').fillText(text, x_pos, y_pos);
+    letters[index] = (y_pos > 758 + Math.random() * 1e4) ? 0 : y_pos + 10;
+  });
+};
+setInterval(draw, 33);
+</script>
+  <script>
+(function(){
+  var o = document.getElementById("hutia");
+  var s = o.innerHTML;
+  var p = document.createElement("span");
+  var n = document.createElement("a");
+  p.innerHTML = s.substring(0,100);
+  n.innerHTML = s.length > 100 ? "...展开" : "";
+  n.href = "###";
+  n.onclick = function(){
+    if (n.innerHTML == "...展开"){
+      n.innerHTML = "收起";
+      p.innerHTML = s;
+    }else{
+      n.innerHTML = "...展开";
+      p.innerHTML = s.substring(0,100);
+    }
+  }
+  o.innerHTML = "";
+  o.appendChild(p);
+  o.appendChild(n);
+})();
+</script>
 </body>
 </html>
