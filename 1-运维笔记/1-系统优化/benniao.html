@@ -218,7 +218,10 @@ ssh -p22 user@ip command
 通常scp -P22 -rp 即可
 4.scp每次都是全量的拷贝，不同于rsync的增量
 
+    </h2></p></details>
+    <details><summary><center><h1>
 非交互式创建密钥
+    </summary></center></h1><p><h2>
 我们手动创建是通过,ssh-keygen -t dsa，然后回车
 1.自动创建
 ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa > /dev/null 2>&1
@@ -250,7 +253,10 @@ user下，echo $path
 在user下，修改vi ~/.bash_profile，将/usr/local/sbin:/sbin:/usr/sbin加入进去
 3.利用suid实现没有权限用户拷贝（了解即可）
 chmod u+s 'which rsync'
+    </h2></p></details>
+    <details><summary><center><h1>
 附赠基于ssh的scp推送脚本
+    </summary></center></h1><p><h2>
 
 #!/bin/bash
 if [ $# -ne 2 ];then
@@ -268,7 +274,10 @@ else
 fi
 done
 
+    </h2></p></details>
+    <details><summary><center><h1>
 非交互模式产生密钥
+    </summary></center></h1><p><h2>
 
 1.yum install expect -y
 2.mkpasswd -l 10
@@ -603,7 +612,10 @@ echo 64000 > /proc/sys/fs/file-max
 ulimit -n 64000
 
 
+    </h2></p></details>
+    <details><summary><center><h1>
 说明：本优化适合apache，nginx，squid多种等web应用，特殊的业务也可能需要略作调整。
+    </summary></center></h1><p><h2>
 vim /etc/sysctl.conf
 #协议优化
 net.ipv4.icmp_echo_ignore_all=1
@@ -640,7 +652,10 @@ net.ipv4.ip_local_port_range = 5000 65000
 
 sysctl -p
 
+    </h2></p></details>
+    <details><summary><center><h1>
 附：查看当前的连接数状况
+    </summary></center></h1><p><h2>
 netstat -nat|awk '{print awk $NF}'|sort|uniq -c|sort -n
 
 参考
@@ -656,8 +671,6 @@ net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 0
 # reuse和recycle这俩个参数是为防止生产环境下web，squid等业务服务器time_wait网络状态数量过多设置的
 注意：
-
-
 
 tcp TIME_WAIT
 进入主题前必须做铺垫啊,讲讲TIME_WAIT.因为TCP连接是双向的，所以在关闭连接的时候，两个方向各自都需要关闭。先发FIN包的一方执行的是主动关闭；后发FIN包的一方执行的是被动关闭。主动关闭的一方会进入TIME_WAIT状态，并且在此状态停留两倍的MSL(最大报文存活时间,一般Linux内核设置30秒)时长。
@@ -710,7 +723,10 @@ net.core.somaxconn = 1024
 
 socket接收的所有连接都是存放在队列类型的数据结构中，关键问题是这种队列有两个，而且其长度都是可以设置的。
  
+    </h2></p></details>
+    <details><summary><center><h1>
 分别是下面两个内核参数：
+    </summary></center></h1><p><h2>
  
 /proc/sys/net/ipv4/tcp_max_syn_backlog
  
@@ -727,7 +743,10 @@ somaxconn是指服务端所能accept即处理数据的最大客户端数量，�
  
 这么描述虽然精确，但是没有一定基础，不熟练网络编程的人理解起来很费劲。
  
+    </h2></p></details>
+    <details><summary><center><h1>
 打个简单的比方：
+    </summary></center></h1><p><h2>
  
 某某发布公告要邀请四海之内若干客人到场参加酒席。客人参加酒席分为两个步骤：
  
@@ -753,8 +772,11 @@ somaxconn是内核里的参数，listen函数有个参数backlog，如果在list
  
 就相当于主人指定了能有多少座位没用，客人到了现场，准备入座时，还要看酒店的客户经理判断能有多少个座位。
   
+    </h2></p></details>
+    <details><summary><center><h1>
 结论：
  
+    </summary></center></h1><p><h2>
 在没有调优的centOS7.4版本的服务器上，由于受到系统级别的限制，在该服务器上运行的服务端程序，在同一时间，最大只能接受128个客户端发起持久连接，并且只能处理128个客户端的数据通信
 
 tcp_max_syn_backlog/somaxconn
@@ -777,7 +799,10 @@ net.core.netdev_max_backlog = 1000  # 默认没有这个配置，需要自己生
 人为减小这个值，更多的情况是增加这个值，默认是4096，建议该值修改为2000，该参数对应系统路径为：/proc/sys/net/ipv4/tcp_max_orphans
 net.ipv4.tcp_max_orphans = 2000
 
+    </h2></p></details>
+    <details><summary><center><h1>
 # 以下参数是对iptables防火墙的优化，防火墙不开会有提示，可以忽略不理。
+    </summary></center></h1><p><h2>
 net.ipv4.ip_conntrack_max = 25000000
 net.ipv4.netfilter.ip_conntrack_max = 25000000
 net.ipv4.netfilter.ip_conntrack_tcp_timeout_established = 180
@@ -798,7 +823,10 @@ net.ipv4.netfilter.ip_conntrack_tcp_timeout_fin_wait = 120
 
 因为是调用API，所以无法对连接进行opt设置，只能通过设置系统配置得以解决
 
+    </h2></p></details>
+    <details><summary><center><h1>
 解决办法：
+    </summary></center></h1><p><h2>
 
 执行命令修改如下2个内核参数   
 sysctl -w net.ipv4.tcp_timestamps=1  开启对于TCP时间戳的支持,若该项设置为0，则下面一项设置不起作用
@@ -825,7 +853,10 @@ net.ipv4.tcp_tw_recycle = 1
 [root@aaa1 ~]# sysctl -p
 用netstat再观察时会发现已经恢复正常。
 
+    </h2></p></details>
+    <details><summary><center><h1>
 #结合DDOS和TIME_WAIT过多，建议增加如下参数设置：
+    </summary></center></h1><p><h2>
 # Use TCP syncookies when needed
 net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_synack_retries=3
@@ -847,7 +878,10 @@ net.ipv4.tcp_tw_recycle = 1
 net.ipv4.ip_local_port_range = 5000 65000
 
 
+    </h2></p></details>
+    <details><summary><center><h1>
 附：查看当前的连接数状况
+    </summary></center></h1><p><h2>
 netstat -nat|awk '{print awk $NF}'|sort|uniq -c|sort -n
 established
 State
@@ -935,8 +969,10 @@ CLOSING：两边同时尝试关闭
 TIME_WAIT：另一边已初始化一个释放
 LAST_ACK：等待所有分组死掉
 
+    </h2></p></details>
+    <details><summary><center><h1>
 进一步论述这个问题：
-
+    </summary></center></h1><p><h2>
 ===============================
  
 --------------客户端主动关闭连接-----------------------
@@ -977,7 +1013,10 @@ LAST_ACK：等待所有分组死掉
      关闭的时候使用RST的方式
      对处于TIME_WAIT状态的TCP允许重用
 
+    </h2></p></details>
+    <details><summary><center><h1>
 一般Apache的配置是：
+    </summary></center></h1><p><h2>
 Timeout 30  
 KeepAlive On   #表示服务器端不会主动关闭链接  
 MaxKeepAliveRequests 100  
@@ -1001,8 +1040,12 @@ TIME_WAIT
 提示：
 由于CentOS7.X系统中的模块名不是ip_conntrack，而是nf_conntrack，所以在/etc/sysctl.conf优化时，需要把net.ipv4.netfilter.ip_conntrack_max 这种老的参数，改成net.netfilter.nf_conntrack_max这样才可以。
 
-即对防火墙的优化，在5.8上是
+    </h2></p></details>
+    <details><summary><center><h1>
+防火墙的优化
+    </summary></center></h1><p><h2>
 
+即对防火墙的优化，在5.8上是
 net.ipv4.ip_conntrack_max = 25000000
 net.ipv4.netfilter.ip_conntrack_max = 25000000
 net.ipv4.netfilter.ip_conntrack_tcp_timeout_established = 180
@@ -1073,7 +1116,10 @@ echo "modprobe bridge">> /etc/rc.local
      对处于TIME_WAIT状态的TCP允许重用
 
 
+    </h2></p></details>
+    <details><summary><center><h1>
 17.Tomcat优化
+    </summary></center></h1><p><h2>
 
 1．提高JVM栈内存
 tomcat有时候会“内存溢出”，这种问题出现在实际的生产环境中，产生这种问题的原因是tomcat使用较少的内存给进程。通过配置tomcat的配置文件（window下的tomcat/bin/catalina.bat或Linux下的tomcat/bin/catalina.sh）可以解决此问题。这种解决方法是通过增加JVM的栈内存实现的。这个方案可以让tomcat可以更多关注处理web请求，并要求尽快完成。
@@ -1131,7 +1177,6 @@ compressableMimeType="text/html,text/xml,text/java,text/css,text/plain"　哪些
 Tomcat性能在等待数据库查询被执行期间会降。提高性能：
 使用可能包含“命名查询”的关系型数据库，Tomcat会在启动时默认加载命名查询，这个可能会提升性能。
 确保所有数据库连接正确地关闭。正确配置数据库连接池设置。Resource要素的最大空闲数（maxIdle），最大连接数（maxActive）,最大建立连接等待时间（maxWait）属性的值。
-
 
     </h2></p></details>
 </p>
