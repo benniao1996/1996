@@ -54,7 +54,7 @@
     </summary></center></h1>
 <p>
     <details><summary><center><h1>
-1.修改ip
+一.修改ip
     </summary></center></h1><p><h2>
 [root@localhost ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
 DEVICE=eth0         #网卡名字
@@ -78,7 +78,7 @@ HOSTNAME=c64
 GATEWAY=192.168.1.1
     </h2></p></details>
     <details><summary><center><h1>
-2.修改DNS
+二.修改DNS
     </summary></center></h1><p><h2>
 [root@localhost ~]# vi /etc/resolv.conf   #修改DNS信息
 nameserver 114.114.114.114
@@ -91,12 +91,12 @@ nameserver 8.8.8.8
 [root@localhost ~]# /etc/init.d/network restart
     </h2></p></details>
     <details><summary><center><h1>
-3.修改主机名
+三.修改主机名
     </summary></center></h1><p><h2>
 [root@localhost ~]# hostnamectl set-hsotname ip-where-work
     </h2></p></details>
     <details><summary><center><h1>
-4.Centos7-重建yum源
+四.Centos7-重建yum源
     </summary></center></h1><p><h2>
 #!/bin/bash
 cat > Base.repo.sh << "EOF"
@@ -111,13 +111,13 @@ echo "脚本执行中"
 sh Base.repo.sh
     </h2></p></details>
     <details><summary><center><h1>
-5.关闭selinux防火墙
+五.关闭selinux防火墙
     </summary></center></h1><p><h2>
 默认云服务器都是关着的
 sed -i "s/=enforcing/=disabled/g" /etc/selinux/config
     </h2></p></details>
     <details><summary><center><h1>
-6.修改防火墙iptables
+六.修改防火墙iptables
     </summary></center></h1><p><h2>
 CentOS切换为iptables防火墙
 firewall-cmd --state 查看防火墙状态
@@ -198,7 +198,7 @@ echo "脚本执行中"
 chmod +x fwiptables.sh && cp fwiptables.sh /root/ && sh /root/fwiptables.sh
     </h2></p></details>
     <details><summary><center><h1>
-7.权限密钥 
+七.权限密钥 
     </summary></center></h1><p><h2>
 一，ssh建立链接过程
 1.服务器上产生公钥
@@ -355,7 +355,7 @@ fi
 
     </h2></p></details>
     <details><summary><center><h1>
-8.服务器时间和时区
+八.服务器时间和时区
     </summary></center></h1><p><h2>
 修改时区
 1)使用tzselect设置时区
@@ -453,7 +453,7 @@ crontab -l -u root #查看root用户
 * 23-7/1 * * * /usr/local/etc/rc.d/lighttpd restart
     </h2></p></details>
     <details><summary><center><h1>
-9.修改系统启动服务
+九.修改系统启动服务
     </summary></center></h1><p><h2>
 systemctl 是管制服务的主要工具,它整合了chkconfig 与 service功能于一体。
 
@@ -492,12 +492,12 @@ systemctl --failed
 
     </h2></p></details>
     <details><summary><center><h1>
-10.清理磁盘垃圾node节点
+十.清理磁盘垃圾node节点
     </summary></center></h1><p><h2>
 centos7默认安装了postfix邮件服务，因此邮件位置 /var/spool/postfix/maildrop/会存在垃圾文件，如果长时间不清理，会导致inode数量不够用，从而无法存放文件
     </h2></p></details>
     <details><summary><center><h1>
-11.修改系统字符编码支持中文 
+十一.修改系统字符编码支持中文 
     </summary></center></h1><p><h2>
 修改字符编码，默认是LANG=en_US.UTF-8
 修改该文件之前，可以先查看已经安装的语言包：
@@ -513,7 +513,7 @@ LANG="zh_CN.UTF-8"
 source /etc/locale.conf
     </h2></p></details>
     <details><summary><center><h1>
-12.隐藏内核信息 
+十二.隐藏内核信息 
     </summary></center></h1><p><h2>
 # cat /etc/redhat-release 
 
@@ -528,7 +528,7 @@ Kernel \r on an \m
 
     </h2></p></details>
     <details><summary><center><h1>
-13.锁定关键核心目录
+十三.锁定关键核心目录
     </summary></center></h1><p><h2>
 加锁，不可修改加锁文件
 [root@jokerpro ~]# chattr +i /etc/passwd /etc/resolv.conf /etc/sudoers /etc/ssh/sshd_config
@@ -543,7 +543,7 @@ Kernel \r on an \m
 -------------e-- /etc/passwd
     </h2></p></details>
     <details><summary><center><h1>
-14.免疫死亡之ping
+十四.免疫死亡之ping
     </summary></center></h1><p><h2>
 # 开启禁止ping
 echo "net.ipv4.icmp_echo_ignore_all=1"  1>> /etc/sysctl.conf && sysctl -p
@@ -555,7 +555,7 @@ echo 0 1> /proc/sys/net/ipv4/icmp_echo_ignore_all
 关闭 1 开启
     </h2></p></details>
     <details><summary><center><h1>
-15.历史记录操作
+十五.历史记录操作
     </summary></center></h1><p><h2>
 # 以下都是临时生效，默认1000不需要更改
 # 设置的是闲置账号的超时时间
@@ -570,7 +570,7 @@ history -c
 history -d 历史记录条属
     </h2></p></details>
     <details><summary><center><h1>
-16.内核网络参数调试
+十六.内核网络参数调试
     </summary></center></h1><p><h2>
 #!/bin/bash
 
