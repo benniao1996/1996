@@ -1,0 +1,884 @@
+#!/bin/bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+export LE_WORKING_DIR="/root/.acme.sh"
+
+arg1=$1
+arg2=$2
+MYNAME=${0##*/}
+DATAHOME=/data
+
+echo_title() {
+    echo -e "\e[0;34m·-·-·-·-·-·-·= $1 =·-·-·-·-·-·-· \e[0m"
+}
+
+echo_red() {
+    echo -e "\e[0;31m$1\e[0m"
+}
+
+echo_green() {
+    echo -e "\e[0;32m$1\e[0m"
+}
+
+echo_yellow() {
+    echo -e "\e[0;33m$1\e[0m"
+}
+
+echo_blue() {
+    echo -e "\e[0;34m$1\e[0m"
+}
+
+echo_info_green() {
+    printf "%-${3}s\e[0;32m%-s\e[0m\n" "$1" "$2"
+}
+
+echo_info_blue() {
+    printf "%-${3}s\e[0;34m%-s\e[0m\n" "$1" "$2"
+}
+
+echo_info_yellow() {
+    printf "%-${3}s\e[0;33m%-s\e[0m\n" "$1" "$2"
+}
+
+echo_info_red() {
+    printf "%-${3}s\e[0;31m%-s\e[0m\n" "$1" "$2"
+}
+
+# Check if user is root
+if [[ $(id -u) != "0" ]]; then
+    echo_red "Error: You must be root to run this script!"
+    exit 1
+fi
+
+server_start() {
+    echo_blue "正在启动服务..."
+    /etc/init.d/nginx start
+    if [ -x /etc/init.d/mysqld ]; then /etc/init.d/mysqld start; else echo_info_red "MySQL" "[ 未安装 ]" 59; fi
+    [ -x /etc/init.d/php-fpm ] && /etc/init.d/php-fpm start || echo_info_red "PHP" "[ 未安装 ]" 59
+    [ -x /etc/init.d/redis ] && /etc/init.d/redis start || echo_info_red "Redis" "[ 未安装 ]" 59
+    [ -x /etc/init.d/uwsgi ] && /etc/init.d/uwsgi start || echo_info_red "Python uWSGI" "[ 未安装 ]" 59
+    [ -x /etc/init.d/tomcat ] && /etc/init.d/tomcat start || echo_info_red "Tomcat:" "[ 未安装 ]" 59
+}
+
+server_stop() {
+    echo_blue "正在停止服务..."
+    /etc/init.d/nginx stop
+    if [ -x /etc/init.d/mysqld ]; then /etc/init.d/mysqld stop; else echo_info_red "MySQL" "[ 未安装 ]" 59; fi
+    [ -x /etc/init.d/php-fpm ] && /etc/init.d/php-fpm stop || echo_info_red "PHP" "[ 未安装 ]" 59
+    [ -x /etc/init.d/redis ] && /etc/init.d/redis stop || echo_info_red "Redis" "[ 未安装 ]" 59
+    [ -x /etc/init.d/uwsgi ] && /etc/init.d/uwsgi stop || echo_info_red "Python uWSGI" "[ 未安装 ]" 59
+    [ -x /etc/init.d/tomcat ] && /etc/init.d/tomcat stop || echo_info_red "Tomcat:" "[ 未安装 ]" 59
+}
+
+server_reload() {
+    echo_blue "正在重启服务..."
+    /etc/init.d/nginx reload
+    if [ -x /etc/init.d/mysqld ]; then /etc/init.d/mysqld reload; else echo_info_red "MySQL" "[ 未安装 ]" 59; fi
+    [ -x /etc/init.d/php-fpm ] && /etc/init.d/php-fpm reload || echo_info_red "PHP" "[ 未安装 ]" 59
+    [ -x /etc/init.d/redis ] && /etc/init.d/redis reload || echo_info_red "Redis" "[ 未安装 ]" 59
+    [ -x /etc/init.d/uwsgi ] && /etc/init.d/uwsgi reload || echo_info_red "Python uWSGI" "[ 未安装 ]" 59
+    [ -x /etc/init.d/tomcat ] && /etc/init.d/tomcat reload || echo_info_red "Tomcat:" "[ 未安装 ]" 59
+}
+
+server_restart() {
+    echo_blue "正在重启服务..."
+    /etc/init.d/nginx restart
+    if [ -x /etc/init.d/mysqld ]; then /etc/init.d/mysqld restart; else echo_info_red "MySQL" "[ 未安装 ]" 59; fi
+    [ -x /etc/init.d/php-fpm ] && /etc/init.d/php-fpm restart || echo_info_red "PHP" "[ 未安装 ]" 59
+    [ -x /etc/init.d/redis ] && /etc/init.d/redis restart || echo_info_red "Redis" "[ 未安装 ]" 59
+    [ -x /etc/init.d/uwsgi ] && /etc/init.d/uwsgi restart || echo_info_red "Python uWSGI" "[ 未安装 ]" 59
+    [ -x /etc/init.d/tomcat ] && /etc/init.d/tomcat restart || echo_info_red "Tomcat:" "[ 未安装 ]" 59
+}
+
+server_test() {
+    /etc/init.d/nginx configtest
+    [ -x /etc/init.d/php-fpm ] && /etc/init.d/php-fpm configtest || echo_info_red "PHP" "[ 未安装 ]" 59
+}
+
+server_kill() {
+    echo_blue "正在退出服务..."
+    killall nginx
+    killall mysqld
+    [ -x /etc/init.d/php-fpm ] && /etc/init.d/php-fpm force-quit || echo_info_red "PHP" "[ 未安装 ]" 59
+    [ -x /etc/init.d/redis ] && /etc/init.d/redis kill || echo_info_red "Redis" "[ 未安装 ]" 59
+    echo_green "done."
+}
+
+server_status() {
+    firewallstatus="$(firewall-cmd --state 2>&1)"
+
+    echo_title "基本信息"
+    echo_info_yellow "硬件平台/处理器类型/内核版本：" "$(uname -i)($(uname -m)) / $(uname -p) / $(uname -r)"
+    echo_info_yellow "CPU 型号(物理/逻辑/每个核数)：" "$(cat /proc/cpuinfo|grep 'model name'|uniq|awk -F : '{print $2}'|sed 's/^[ \t]*//g'|sed 's/ \+/ /g') ($(cat /proc/cpuinfo|grep 'physical id'|sort|uniq|wc -l) / $(cat /proc/cpuinfo|grep 'processor'|wc -l) / $(cat /proc/cpuinfo|grep 'cpu cores'|uniq|awk '{print $4}'))"
+    echo_info_yellow "服务器时间：" "$(date '+%Y年%m月%d日 %H:%M:%S')"
+    echo_info_yellow "防火墙状态：" "${firewallstatus}"
+
+    echo_title "内存使用"
+    free -h
+    echo_title "存储容量"
+    df -h /
+    # echo_title "应用目录"
+    # du -h "${DATAHOME}" -d 1
+
+    echo_title "服务状态"
+    /etc/init.d/nginx status
+    if [ -x /etc/init.d/mysqld ]; then /etc/init.d/mysqld status; else echo_info_red "MySQL" "[ 未安装 ]" 59; fi
+    [ -x /etc/init.d/php-fpm ] && /etc/init.d/php-fpm status || echo_info_red "PHP" "[ 未安装 ]" 59
+    [ -x /etc/init.d/redis ] && /etc/init.d/redis status || echo_info_red "Redis" "[ 未安装 ]" 59
+    [ -x /etc/init.d/uwsgi ] && /etc/init.d/uwsgi status || echo_info_red "Python uWSGI" "[ 未安装 ]" 59
+    [ -x /etc/init.d/tomcat ] && /etc/init.d/tomcat status || echo_info_red "Tomcat:" "[ 未安装 ]" 59
+}
+
+install_vhost_cert() {
+    if [[ ${ACMETYPE} == 2 || ${ACMETYPE} == "dns" || ${ACMETYPE} == "DNS" ]]; then
+        /root/.acme.sh/acme.sh --issue --dns ${ACME_DNS} ${INSCERTDOMAIN} ${1}
+    else
+        /root/.acme.sh/acme.sh --issue --webroot /data/wwwroot/challenges  ${INSCERTDOMAIN} ${1}
+    fi
+    /root/.acme.sh/acme.sh --installcert ${INSCERTDOMAIN} \
+        --cert-file ${DATAHOME}/wwwcert/${domain}/cert.pem \
+        --key-file ${DATAHOME}/wwwcert/${domain}/${domain}.key \
+        --fullchain-file ${DATAHOME}/wwwcert/${domain}/fullchain.pem
+}
+
+set_dns_conf() {
+    echo_blue "你选择的是 DNS 方式验证，请按提示输入以下信息。"
+    echo_yellow "请选择 DNS 服务商:"
+    echo_blue "1: CloudFlare"
+    echo_blue "2: DNSPod"
+    echo_blue "3: CloudXNS"
+    echo_blue "4: GoDaddy"
+    echo_blue "5: Aliyun"
+    read -r -p "请输入 (1, 2, 3, 4, 5): " DNSERVER
+
+    case "${DNSERVER}" in
+        1)
+            echo_blue "请通过 https://dash.cloudflare.com/profile 查询账户 API 的 Key 信息"
+            read -r -p "请输入 Key: " CF_KEY
+            read -r -p "请输入 Email: " CF_Email
+            export CF_KEY="${CF_KEY}"
+            export CF_Email="${CF_Email}"
+            ACME_DNS="dns_cf"
+            ;;
+        2)
+            echo_blue "请先登录 DNSPod 查询账户 API 的 Key 及 ID"
+            read -r -p "请输入 ID: " DP_Id
+            read -r -p "请输入 Key: " DP_Key
+            export DP_Id="${DP_Id}"
+            export DP_Key="${DP_Key}"
+            ACME_DNS="dns_dp"
+            ;;
+        3)
+            echo_blue "请先登录 CloudXNS.com 查询账户 API 的 Key 及 Secret"
+            read -r -p "请输入 Key: " CX_Key
+            read -r -p "请输入 Secret: " CX_Secret
+            export CX_Key="${CX_Key}"
+            export CX_Secret="${CX_Secret}"
+            ACME_DNS="dns_cx"
+            ;;
+        4)
+            echo_blue "请通过 https://developer.godaddy.com/keys/ 查询账户 API 的 Key 及 Secret"
+            read -r -p "请输入 Key: " GD_Key
+            read -r -p "请输入 Secret: " GD_Secret
+            export GD_Key="${GD_Key}"
+            export GD_Secret="${GD_Secret}"
+            ACME_DNS="dns_gd"
+            ;;
+        5)
+            echo_blue "请通过 https://ak-console.aliyun.com/#/accesskey 查询账户 API 的 Key 及 Secret"
+            read -r -p "请输入 Key: " Ali_Key
+            read -r -p "请输入 Email: " Ali_Secret
+            export Ali_Key="${Ali_Key}"
+            export Ali_Secret="${Ali_Secret}"
+            ACME_DNS="dns_ali"
+            ;;
+        *)
+            echo_red "DNS 服务商选择错误！"
+            exit 1
+            ;;
+    esac
+}
+
+add_vhost() {
+    if [ ! -x /etc/init.d/nginx ]; then
+        echo_red "Nginx 未安装"
+        exit 1
+    fi
+
+    domain=""
+    echo_yellow "新增网站的主域名(绑定的其他域名会跳转到主域名)"
+    while :;do
+        read -r -p "请输入: " domain
+        if [[ ${domain} != "" ]]; then
+            if [ -f "${DATAHOME}/wwwconf/nginx/${domain}.conf" ]; then
+                echo_red "网站 ${domain} 已经存在，请重新输入！"
+            else
+                break
+            fi
+        else
+            echo_red "要添加的网站域名不能为空！"
+        fi
+    done
+    echo_yellow "是否绑定更多域名(如不绑定请直接回车)？"
+    read -r -p "多个域名请用半角空格隔开: " moredomain
+    if [[ ${moredomain} != "" ]]; then
+        moredomain_conf=" ${moredomain}"
+        INSCERTDOMAIN="-d ${domain}"$(echo "${moredomain}" | sed "s/ / -d&/g" | sed "s/^/ -d &/g")
+    else
+        moredomain_conf=""
+        INSCERTDOMAIN="-d ${domain}"
+    fi
+
+    echo_yellow "请输入网站目录(默认目录: ${DATAHOME}/wwwroot/${domain})"
+    while :;do
+        read -r -p "请输入(默认请直接回车): " vhostdir
+        if [[ ${vhostdir} != "" ]]; then
+            vhostdir="${DATAHOME}/wwwroot/${vhostdir}"
+            if [ -d "${vhostdir}" ]; then
+                echo_red "网站目录 ${vhostdir} 已经存在，请重新输入！"
+            else
+                break
+            fi
+        else
+            vhostdir="${DATAHOME}/wwwroot/${domain}"
+            break
+        fi
+    done
+
+    if [ -x /etc/init.d/php-fpm ]; then
+        echo_yellow "是否启用 PHP?"
+        read -r -p "是(Y)/否(N): " phpfpm
+        if [[ ${phpfpm} == "y" || ${phpfpm} == "Y" ]]; then
+            echo_yellow "是否限制站点目录防止跨站(PHP)?"
+            read -r -p "是(Y)/否(N): " phpallowed
+            if [[ ${phpallowed} == "y" || ${phpallowed} == "Y" ]]; then
+                open_basedir="fastcgi_param           PHP_VALUE \"open_basedir=\$document_root:/tmp/:/proc/\";"
+            else
+                open_basedir=""
+            fi
+        fi
+    fi
+
+    if [ -x /etc/init.d/uwsgi ]; then
+        echo_yellow "是否启用 uWSGI(Python)?"
+        read -r -p "是(Y)/否(N): " uwsgi
+        if [[ ${uwsgi} == "y" || ${uwsgi} == "Y" ]]; then
+            echo_yellow "Python 入口文件(默认: app.py)"
+            read -r -p "请输入(默认请直接回车): " appname
+            if [[ ${appname} == "" ]]; then
+                appname="app.py"
+            fi
+            echo_yellow "Python 程序目录"
+            read -r -p "请输入(默认请直接回车): " appdir_temp
+            appdir="/${appdir_temp}"
+        fi
+    fi
+
+    if [ -x /etc/init.d/tomcat ]; then
+        echo_yellow "是否启用 Tomcat?"
+        read -r -p "是(Y)/否(N): " tomcat
+    fi
+
+    echo_yellow "是否允许跨域请求?"
+    read -r -p "启用(Y)/不启用(N): " cors
+    if [[ "${cors}" == "y" || "${cors}" == "Y" ]]; then
+        read -r -p "允许请求的域(直接回车为全部允许): " allow_domain
+    fi
+
+    echo_yellow "是否启用网站日志?"
+    read -r -p "启用(Y)/禁用(N): " access_log
+    if [[ "${access_log}" == "y" || "${access_log}" == "Y" ]]; then
+        echo_yellow "请输入日志名(默认: ${domain}.log)"
+        read -r -p "请输入(默认请直接回车): " al_name
+        if [[ "${al_name}" == "" ]]; then
+            al_name="${domain}"
+        fi
+        al="access_log                  ${DATAHOME}/wwwlogs/${al_name}.log;"
+    else
+        al="access_log off;"
+    fi
+
+    # TODO: 泛域名设置
+    echo_yellow "请选择 https 证书验证方式"
+    echo_blue "1: web"
+    echo_blue "2: dns"
+    read -r -p "请输入数字: " ACMETYPE
+    if [[ ${ACMETYPE} == 2 || ${ACMETYPE} == "dns" || ${ACMETYPE} == "DNS" ]]; then
+        set_dns_conf
+    fi
+
+    echo ""
+    echo_yellow "新增网站信息："
+    echo_info_green "网站域名" "$domain $moredomain"
+    echo_info_green "网站目录" "${vhostdir}"
+    if [[ "${access_log}" == "y" || "${access_log}" == "Y" ]]; then
+        echo_info_green "网站日志" "${DATAHOME}/wwwlogs/${al_name}.log"
+    else
+        echo_info_blue "网站日志" "禁用日志"
+    fi
+    if [[ "${cors}" == "y" || "${cors}" == "Y" ]]; then
+        echo_info_green "跨域请求" "${allow_domain}"
+    else
+        echo_info_blue "跨域请求" "不启用"
+    fi
+    if [[ ${phpfpm} == "y" || ${phpfpm} == "Y" ]]; then
+        echo_info_green "PHP 服务" "已启用"
+        if [[ ${phpfpm} == "y" || ${phpfpm} == "Y" ]]; then
+            echo_info_green "    PHP 限制目录" "是"
+        else
+            echo_info_green "    PHP 限制目录" "否"
+        fi
+    else
+        echo_info_blue "PHP 服务" "未安装/未启用"
+    fi
+    if [[ ${uwsgi} == "y" || ${uwsgi} == "Y" ]]; then
+        echo_info_green "uWsgi 服务" "已启用"
+        echo_info_green "    uWsgi 入口文件" "${appname}"
+        echo_info_green "    uWsgi 程序目录" "${appdir_temp}"
+    else
+        echo_info_blue "uWsgi 服务" "未安装/未启用"
+    fi
+    if [[ "${tomcat}" == "y" || "${tomcat}" == "Y" ]]; then
+        echo_info_green "Tomcat 服务" "已启用"
+    else
+        echo_info_blue "Tomcat 服务" "未安装/未启用"
+    fi
+
+    echo ""
+    echo_yellow "请按任意键开始新建网站..."
+    OLDCONFIG=$(stty -g)
+    stty -icanon -echo min 1 time 0
+    dd count=1 2>/dev/null
+    stty "${OLDCONFIG}"
+
+    echo_blue "配置网站信息..."
+    mkdir -p "${vhostdir}"
+    chmod -R 755 "${vhostdir}"
+    chown -R nobody:nobody "${vhostdir}"
+
+    if [[ ${access_log} == "y" || ${access_log} == "Y" ]]; then
+        touch "${DATAHOME}/wwwlogs/${al_name}.log"
+    fi
+    if [[ ${tomcat} == "y" || ${tomcat} == "Y" ]]; then
+        sed -i "/<\/Engine>/i\      <Host name=\"${domain}\"  appBase=\"\" unpackWARs=\"true\" autoDeploy=\"true\">\n        <Context path=\"\" reloadable=\"true\" docBase=\"${vhostdir}\" debug=\"0\" />\n        <Valve className=\"org.apache.catalina.valves.AccessLogValve\" directory=\"${DATAHOME}/wwwlogs\" prefix=\"${domain}_tomcat\" suffix=\".log\" pattern=\"%h %l %u %t &quot;%r&quot; %s %b\" />\n      </Host>" /usr/local/tomcat/conf/server.xml
+        echo "127.0.0.1  ${domain}" >> /etc/hosts
+    fi
+    if [[ ${uwsgi} == "y" || ${uwsgi} == "Y" ]]; then
+        cat >"${DATAHOME}/wwwconf/uwsgi/${domain}.ini"<<EOF
+[uwsgi]
+chdir=${vhostdir}${appdir}
+wsgi-file=${vhostdir}${appdir}/${appname}
+module=${appdir}:${appname}
+
+master=true
+workers=5
+processes=5
+threads=2
+enable-threads=true
+
+socket=/tmp/${domain}.uwsgi.sock
+pidfile=/tmp/${domain}.uwsgi.pid
+chmod-socket=660
+
+uid=nobody
+gid=nobody
+callable=app
+
+lazy-apps=true  # 在每个worker而不是master中加载应用
+listen=120    # 设置socket的监听队列大小（默认：100)
+# reload-mercy=8  # 设置在平滑的重启（直到接收到的请求处理完才重启）一个工作子进程中，等待这个工作结束的最长秒数
+# max-requests=5000  # 为每个工作进程设置请求数的上限。当一个工作进程处理的请求数达到这个值，那么该工作进程就会被回收重用（重启）
+
+vacuum=true
+die-on-term=true
+wsgi-disable-file-wrapper=true
+thunder-lock=true
+
+harakiri=60
+post-buffering=131072
+buffer-size=65536
+socket-timeout=10
+daemonize=${DATAHOME}/wwwlogs/${domain}.uwsgi.log
+EOF
+    fi
+
+    tmpvhost=$(ls ${DATAHOME}/wwwconf/nginx/)
+    if [ -n "$tmpvhost" ]; then
+        LISTEN="listen                      443 ssl http2;"
+    else
+        LISTEN="listen                      443 ssl http2 fastopen=3 reuseport;"
+    fi
+
+    cat >"${DATAHOME}/wwwconf/nginx/${domain}.conf"<<EOF
+server
+    {
+        listen            80;
+        server_name       ${domain}${moredomain_conf};
+        server_tokens     off;
+
+        access_log        /dev/null;
+
+        if (\$request_method !~ ^(GET|HEAD|POST|OPTIONS)\$ ) {
+            return        444;
+        }
+
+        # 安装证书时的验证目录
+        location ^~ /.well-known/acme-challenge/ {
+            root          ${DATAHOME}/wwwroot/challenges/;
+            try_files     \$uri =404;
+        }
+
+        location / {
+            rewrite       ^/(.*)\$ https://${domain}/\$1 permanent;
+        }
+    }
+EOF
+    echo_blue "测试网站配置文件..."
+    /usr/local/nginx/sbin/nginx -t
+    /usr/local/nginx/sbin/nginx -s reload
+
+    mkdir -p "${DATAHOME}/wwwcert/${domain}"
+    openssl dhparam -out "${DATAHOME}/wwwcert/${domain}/dhparams.pem" 2048
+    # openssl rand 48 > "${DATAHOME}/wwwcert/${domain}/session_ticket.key"
+    install_vhost_cert
+    /etc/init.d/nginx force-reload
+    # if [[ ${ACMETYPE} == 2 || ${ACMETYPE} == "dns" || ${ACMETYPE} == "DNS" ]]; then
+    #     /root/.acme.sh/acme.sh --issue --dns ${ACME_DNS} ${INSCERTDOMAIN}
+    # else
+    #     /root/.acme.sh/acme.sh --issue ${INSCERTDOMAIN} --webroot /data/wwwroot/challenges --log
+    # fi
+    # /root/.acme.sh/acme.sh --installcert ${INSCERTDOMAIN} \
+    #     --cert-file ${DATAHOME}/wwwcert/${domain}/cert.pem \
+    #     --key-file ${DATAHOME}/wwwcert/${domain}/${domain}.key \
+    #     --fullchain-file ${DATAHOME}/wwwcert/${domain}/fullchain.pem \
+    #     --reloadcmd  "service nginx force-reload"
+
+    cat >>"${DATAHOME}/wwwconf/nginx/${domain}.conf"<<EOF
+server
+    {
+        ${LISTEN}
+
+        server_name                 ${domain}${moredomain_conf};
+        server_tokens               off;
+
+        # 中间证书 + 站点证书
+        ssl_certificate             ${DATAHOME}/wwwcert/${domain}/fullchain.pem;
+        # 创建 CSR 文件时用的密钥
+        ssl_certificate_key         ${DATAHOME}/wwwcert/${domain}/${domain}.key;
+        ssl_dhparam                 ${DATAHOME}/wwwcert/${domain}/dhparams.pem;
+        # 根证书 + 中间证书
+        # https://imququ.com/post/why-can-not-turn-on-ocsp-stapling.html
+        ssl_trusted_certificate    ${DATAHOME}/wwwcert/${domain}/cert.pem;
+        # 单机部署可以不指定 ssl_session_ticket_key
+        #ssl_session_ticket_key     ${DATAHOME}/wwwcert/${domain}/session_ticket.key;
+
+        ssl_protocols              TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+        ssl_ciphers                TLS13-AES-256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256:TLS13-AES-128-GCM-SHA256:TLS13-AES-128-CCM-8-SHA256:TLS13-AES-128-CCM-SHA256:EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+ECDSA+AES128:EECDH+aRSA+AES128:RSA+AES128:EECDH+ECDSA+AES256:EECDH+aRSA+AES256:RSA+AES256:EECDH+ECDSA+3DES:EECDH+aRSA+3DES:RSA+3DES:!MD5;
+
+        ssl_prefer_server_ciphers  on;
+
+        ssl_session_cache          shared:SSL:50m;
+        ssl_session_timeout        1d;
+
+        ssl_session_tickets        on;
+
+        ssl_stapling               on;
+        ssl_stapling_verify        on;
+
+        #resolver                   114.114.114.114 valid=300s;
+        #resolver_timeout           10s;
+
+        ${al}
+
+        if ( \$request_method !~ ^(GET|HEAD|POST|OPTIONS)\$ ) {
+            return                 444;
+        }
+
+        # 安装证书时的验证目录
+        location ^~ /.well-known/acme-challenge/ {
+            root          ${DATAHOME}/wwwroot/challenges/;
+            try_files     \$uri =404;
+        }
+
+        if ( \$host != '${domain}' ) {
+            rewrite          ^/(.*)\$  https://${domain}/\$1 permanent;
+        }
+
+        add_header                 Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
+        add_header                 X-Frame-Options SAMEORIGIN;
+        add_header                 X-Content-Type-Options nosniff;
+        add_header                 X-XSS-Protection "1; mode=block";
+EOF
+    if [[ ${cors} == "y" || ${cors} == "Y" ]]; then
+        if [[ "${allow_domain}" == "" ]]; then
+            allow_domain="*"
+        fi
+# TODO 多域名的设置
+cat >>"${DATAHOME}/wwwconf/nginx/${domain}.conf"<<EOF
+        # set \$cors_origin "";
+        # if (\$http_origin ~* "^${allow_domain[0]}\$") {
+        #        set \$cors_origin \$http_origin;
+        # }
+        # if (\$http_origin ~* "^${allow_domain[1]}\$") {
+        #        set \$cors_origin \$http_origin;
+        # }
+        set              \$cors_origin "${allow_domain}";
+
+        add_header       Access-Control-Allow-Origin \$cors_origin;
+        add_header       Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+        add_header       Access-Control-Allow-Credentials true;
+        add_header       Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,token';
+        # add_header       Content-Type 'application/json;charset=utf-8';
+        if (\$request_method = 'OPTIONS') {
+            return 204;
+        }
+
+        error_page       500 502 503 504 /50x.json;
+        location = /50x.json {
+            add_header       Access-Control-Allow-Origin \$cors_origin always;
+            add_header       Access-Control-Allow-Methods 'GET, POST, OPTIONS' always;
+            add_header       Access-Control-Allow-Credentials true always;
+            add_header       Access-Control-Allow-Headers 'Keep-Alive,User-Agent,X-Requested-With,Cache-Control,Content-Type' always;
+            add_header       Content-Type 'application/json;charset=utf-8' always;
+            root             ${vhostdir};
+        }
+EOF
+    fi
+cat >>"${DATAHOME}/wwwconf/nginx/${domain}.conf"<<EOF
+
+        root  ${vhostdir};
+        index index.html index.htm index.php;
+
+        location ~ .*\\.(gif|jpg|jpeg|png|js|css)\$ {
+            expires          max;
+        }
+
+        location ~ /(images|static|uploads|downloads)/.*\\.(php|php5)?$ {
+            deny all;
+        }
+EOF
+    if [[ ${phpfpm} == "y" || ${phpfpm} == "Y" ]]; then
+cat >>"${DATAHOME}/wwwconf/nginx/${domain}.conf"<<EOF
+
+        location ~ [^/]\\.php(/|$) {
+            #try_files               \$uri =404;
+            fastcgi_pass            unix:/tmp/php-cgi.sock;
+            #fastcgi_pass            127.0.0.1:9000;
+            fastcgi_index           index.php;
+            fastcgi_param           SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+            include                 fastcgi.conf;
+            ${open_basedir}
+        }
+EOF
+    fi
+
+    if [[ ${uwsgi} == "y" || ${uwsgi} == "Y" ]]; then
+cat >>"${DATAHOME}/wwwconf/nginx/${domain}.conf"<<EOF
+
+        location ${appdir} {
+            include                 uwsgi_params;
+            uwsgi_connect_timeout   30;
+            uwsgi_pass              unix:/tmp/${domain}.uwsgi.sock;
+        }
+EOF
+    fi
+
+    if [[ ${tomcat} == "y" || ${tomcat} == "Y" ]]; then
+cat >>"${DATAHOME}/wwwconf/nginx/${domain}.conf"<<EOF
+
+        location ^~ / {
+            proxy_pass              http://${domain}:8080/;
+            proxy_redirect          off;
+            proxy_set_header        Host \$host;
+            proxy_set_header        X-Real-IP \$remote_addr;
+            proxy_set_header        X-Forwarded-For \$proxy_add_x_forwarded_for;
+        }
+EOF
+    fi
+
+cat >>"${DATAHOME}/wwwconf/nginx/${domain}.conf"<<EOF
+
+        location ~ /\\. {
+            deny all;
+        }
+    }
+EOF
+
+    echo_blue "测试网站配置文件..."
+    if ! /usr/local/nginx/sbin/nginx -t || ! /etc/init.d/php-fpm configtest; then
+        echo_red "网站配置失败!"
+        exit 1
+    fi
+    echo_green "网站配置成功，重启服务..."
+    server_reload
+
+    echo ""
+    echo_yellow "========= 网站信息 ========="
+    echo_info_green "网站域名" "$domain $moredomain"
+    echo_info_green "网站目录" "${vhostdir}"
+    if [[ "${access_log}" == "y" || "${access_log}" == "Y" ]]; then
+        echo_info_green "网站日志" "${DATAHOME}/wwwlogs/${al_name}.log"
+    else
+        echo_info_blue "网站日志" "禁用日志"
+    fi
+    if [[ "${cors}" == "y" || "${cors}" == "Y" ]]; then
+        echo_info_green "跨域请求" "${allow_domain}"
+    else
+        echo_info_blue "跨域请求" "不启用"
+    fi
+    if [[ ${phpfpm} == "y" || ${phpfpm} == "Y" ]]; then
+        echo_info_green "PHP 服务" "已启用"
+        if [[ ${phpfpm} == "y" || ${phpfpm} == "Y" ]]; then
+            echo_info_green "    PHP 限制目录" "是"
+        else
+            echo_info_green "    PHP 限制目录" "否"
+        fi
+    else
+        echo_info_blue "PHP 服务" "未安装/未启用"
+    fi
+    if [[ ${uwsgi} == "y" || ${uwsgi} == "Y" ]]; then
+        echo_info_green "uWsgi 服务" "已启用"
+        echo_info_green "    uWsgi 入口文件" "${appname}"
+        echo_info_green "    uWsgi 程序目录" "${appdir_temp}"
+    else
+        echo_info_blue "uWsgi 服务" "未安装/未启用"
+    fi
+    if [[ "${tomcat}" == "y" || "${tomcat}" == "Y" ]]; then
+        echo_info_green "Tomcat 服务" "已启用"
+    else
+        echo_info_blue "Tomcat 服务" "未安装/未启用"
+    fi
+}
+
+list_vhost() {
+    echo_title "网站列表"
+    i=1
+    for site in ${DATAHOME}/wwwconf/nginx/*.conf; do
+        [[ -e "$site" ]] || break
+        echo_info_green "[$i]" "${site:${#DATAHOME}+15:0-5}" 5
+        let i=$i+1
+    done
+}
+
+del_vhost() {
+    list_vhost
+    echo_yellow "请手动删除 ${DATAHOME}/wwwconf/ 目录下对应的网站配置文件和 ${DATAHOME}/wwwroot/ 目录下的网站程序文件"
+}
+
+vhost_menu() {
+    case "$1" in
+        [aA][dD][dD])
+            add_vhost
+            ;;
+        [lL][iI][sS][tT])
+            list_vhost
+            ;;
+        [dD][eE][lL])
+            del_vhost
+            ;;
+        [eE][xX][iI][tT])
+            exit 1
+            ;;
+        *)
+            echo_yellow "Usage: ${MYNAME} vhost {add|list|del}"
+            exit 1
+            ;;
+    esac
+}
+
+check_cert_status() {
+    echo_title "证书状态"
+    /root/.acme.sh/acme.sh --list
+    echo ""
+    NOW=$(date +%s)
+    MNOW=$(date +%s -d "30 day")
+    for certdir in $(ls ${DATAHOME}/wwwcert/); do
+        if [ -f "${DATAHOME}/wwwcert/${certdir}/cert.pem" ]; then
+            CERT_DATE=$(openssl x509 -in ${DATAHOME}/wwwcert/"${certdir}"/cert.pem -noout -enddate)
+            CERT_DATE_STR=${CERT_DATE#*=}
+            SHOW_DATE=$(date "+%Y-%m-%d %H:%M:%S" -d "$CERT_DATE_STR")
+            CERT_DATE_TIME=$(date "+%s" -d "$CERT_DATE_STR")
+
+            if [ "$CERT_DATE_TIME" -ge "$MNOW" ]; then
+                echo_info_green "$certdir" "到期日期: $SHOW_DATE" 36
+            elif [ "$CERT_DATE_TIME" -gt "$NOW" ]; then
+                echo_info_yellow "$certdir" "到期日期: $SHOW_DATE (即将到期，请更新证书)" 36
+            else
+                echo_info_red "$certdir" "到期日期: $SHOW_DATE (已过期，需通过 DNS 方式更新证书)" 36
+            fi
+        fi
+    done
+}
+
+apply_domain_cert() {
+    list_vhost
+    echo_blue "申请新的网站域名证书..."
+    while :;do
+        read -r -p "请输入网站域名: " domain
+        if [[ ${domain} != "" ]]; then
+            if [ ! -f "${DATAHOME}/wwwconf/nginx/${domain}.conf" ]; then
+                echo_red "网站 ${domain} 不存在！"
+            else
+                break
+            fi
+        else
+            echo_red "网站域名不能为空！"
+        fi
+    done
+
+    echo_yellow "请选择证书验证方式"
+    echo_blue "1: web"
+    echo_blue "2: dns"
+    read -r -p "请输入数字: " ACMETYPE
+    if [[ ${ACMETYPE} == 2 || ${ACMETYPE} == "dns" || ${ACMETYPE} == "DNS" ]]; then
+        set_dns_conf
+    fi
+    install_vhost_cert
+    /etc/init.d/nginx force-reload
+
+    echo_green "证书申请成功！请编辑Nginx配置文件，添加证书信息。"
+}
+
+update_one_domain_cert() {
+    if [ ! -f /root/.acme.sh/${domain}/${domain}.conf ]; then
+        echo_red "网站 ${domain} 配置文件不存在！请输入正确的网站域名，或者通过以下命令新申请网站证书"
+        echo_yellow "${MYNAME} cert new "
+    fi
+
+    . /root/.acme.sh/${domain}/${domain}.conf
+
+    if echo $Le_Webroot | grep dns >/dev/null; then
+        ACMETYPE="dns"
+        ACME_DNS=$Le_Webroot
+    else
+        echo_blue "当前网站(${domain})的证书申请接口为WEB方式，是否改用DNS接口？"
+        read -r -p "是(Y)/否(N): " CHANGEACMETYPE
+        if [[ ${CHANGEACMETYPE} == "y" || ${CHANGEACMETYPE} == "Y" ]]; then
+            ACMETYPE="dns"
+            set_dns_conf
+        else
+            ACMETYPE="web"
+            NOW=$(date +%s)
+            CERT_DATE=$(openssl x509 -in ${DATAHOME}/wwwcert/"${domain}"/cert.pem -noout -enddate)
+            CERT_DATE_TIME=$(date "+%s" -d "${CERT_DATE#*=}")
+            if [ "$CERT_DATE_TIME" -lt "$NOW" ]; then
+                echo_red "$domain 证书已过期，需通过 DNS 方式更新证书!"
+                exit 1
+            fi
+        fi
+    fi
+
+    INSCERTDOMAIN="-d ${Le_Domain}"
+    if [[ ${Le_Alt} != "no" ]]; then
+        INSCERTDOMAIN="${INSCERTDOMAIN} -d ${Le_Alt}"
+    fi
+
+    install_vhost_cert "--force"
+}
+
+update_domain_cert() {
+    list_vhost
+    echo ""
+    echo_blue "更新网站域名证书..."
+    read -r -p "请输入网站域名(不输入将更新全部网站证书): " domain
+    if [[ ${domain} != "" ]]; then
+        update_one_domain_cert
+    else
+        for certdir in $(ls ${DATAHOME}/wwwcert/); do
+            if [ -f "${DATAHOME}/wwwcert/${certdir}/cert.pem" ]; then
+                domain=$certdir
+                update_one_domain_cert
+            fi
+        done
+    fi
+    /etc/init.d/nginx force-reload
+}
+
+cert_menu() {
+    case "$1" in
+        check|status)
+            check_cert_status
+            ;;
+        update)
+            update_domain_cert
+            ;;
+        new)
+            apply_domain_cert
+            ;;
+        cron)
+            /root/.acme.sh/acme.sh --cron  # acme.sh --cron -f  强制
+            ;;
+        auto)
+            /root/.acme.sh/acme.sh --install-cronjob
+            ;;
+        *)
+            echo_yellow "Usage: ${MYNAME} cert {check|status|update|new|cron|auto}"
+            exit 1
+            ;;
+    esac
+}
+
+case "${arg1}" in
+    start)
+        server_start
+        ;;
+    stop)
+        server_stop
+        ;;
+    restart)
+        server_restart
+        ;;
+    reload)
+        server_reload
+        ;;
+    kill)
+        server_kill
+        ;;
+    status)
+        server_status
+        check_cert_status
+        ;;
+    test)
+        server_test
+        ;;
+    nginx)
+        /etc/init.d/nginx ${arg2}
+        ;;
+    mysql)
+        /etc/init.d/mysqld ${arg2}
+        ;;
+    php-fpm)
+        /etc/init.d/php-fpm ${arg2}
+        ;;
+    redis)
+        /etc/init.d/redis ${arg2}
+        ;;
+    uwsgi)
+        /etc/init.d/uwsgi ${arg2}
+        ;;
+    tomcat)
+        /etc/init.d/tomcat ${arg2}
+        ;;
+    vhost)
+        vhost_menu ${arg2}
+        ;;
+    cert)
+        cert_menu ${arg2}
+        ;;
+    upadte)
+        echo_blue "当前工具名称: ${MYNAME}"
+        echo_blue "系统安装目录：${DATAHOME}"
+        wget https://raw.githubusercontent.com/zsenliao/initServer/master/pnmp -O /usr/local/bin/"${MYNAME}"
+        sed -i "s|/data/|${DATAHOME}/|g" /usr/local/bin/"${MYNAME}"
+        chmod +x /usr/local/bin/"${MYNAME}"
+        ${MYNAME} status
+        ;;
+    *)
+        echo_yellow "Usage: ${MYNAME} {start|stop|reload|restart|kill|status|test}"
+        echo_yellow "Usage: ${MYNAME} {nginx|mysql|php-fpm|redis|uwsgi|tomcat} {start|stop|reload|restart|kill|status}"
+        echo_yellow "Usage: ${MYNAME} vhost {add|list|del}"
+        echo_yellow "Usage: ${MYNAME} cert {check|status|update|new|cron|auto}"
+        echo_yellow "Usage: ${MYNAME} upadte"
+        ;;
+esac
+exit
