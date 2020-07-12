@@ -1,0 +1,4 @@
+{
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"],
+  "hosts": ["tcp://127.0.0.1:2375", "unix:///var/run/docker.sock"]
+}
