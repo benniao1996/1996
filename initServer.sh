@@ -317,7 +317,8 @@ ssh_setting() {
         echo "    IdentitiesOnly yes"
         echo_green "同样请根据实际情况修改上面命令中 ./${FILENAME} 证书路径，然后通过以下命令连接："
         echo "ssh ${HOST_NAME-$EMPTY_SER_NAME}"
-        echo "ssh -p ${SSHPORT} $(whoami)@${HOSTIP}"
+        echo_red "登陆成功就退出然后使用下面命令继续登陆验证一下"
+        echo "ssh -i ${FILENAME} -p ${SSHPORT} $(whoami)@${HOSTIP}"
     else
         echo_green "已设置用户密码登录(登录时需输入用户密码 ${PASSWORD})。登录方式："
         echo "ssh -p ${SSHPORT} $(whoami)@${HOSTIP}"
@@ -378,6 +379,7 @@ install_zsh() {
     if [[ ${INSOHMYZSH} == "y" || ${INSOHMYZSH} == "Y" ]]; then
         echo_blue "[+] 安装 oh my zsh..."
         wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+	mkdir -p ~/.zshrc
         sed -i "s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"ys\"/g" ~/.zshrc
     fi
 
@@ -1504,6 +1506,7 @@ EOF
 
     if [[ ${INSSTACK} != "auto" ]]; then
         echo_yellow "Composer 需要 PHP 5.3.2+ 以上版本，且需要开启 openssl "
+        echo_yellow "已经编译安装 --with-openssl 模块 "
         echo_yellow "是否安装 Composer? "
         read -r -p "是(Y)/否(N): " INSCPR
         if [[ ${INSCPR} == "y" || ${INSCPR} == "Y" ]]; then
@@ -1592,7 +1595,7 @@ EOF
     if [[ ${INSSTACK} != "auto" ]]; then
         echo_yellow "PHP-MySQL 扩展是针对 MySQL 4.1.3 或更早版本设计的，是 PHP 与 MySQL数据库交互的早期扩展。由于其不支持 MySQL 数据库服务器的新特性，且安全性差，在项目开发中不建议使用，可用 MySQLi 扩展代替"
         echo_yellow "MySQLi 扩展是 MySQL 扩展的增强版，它不仅包含了所有 MySQL 扩展的功能函数，还可以使用 MySQL 新版本中的高级特性。例如，多语句执行和事务的支持，预处理方式完全解决了 SQL 注入问题等。MySQLi 扩展只支持MySQL 数据库，如果不考虑其他数据库，该扩展是一个非常好的选择。 "
-        echo_yellow "是否安装 MySQL 扩展（骇客笨鸟经常入侵这个所以不建议安装，请使用最新版如 MySQLi 扩展）? "
+        echo_yellow "是否安装 MySQL 扩展（骇客笨鸟经常入侵这里请谨慎安装，请使用最新版如 MySQLi 扩展）? "
         read -r -p "是(Y)/否(N): " PHPMYSQL
         if [[ ${PHPMYSQL} == "y" || ${PHPMYSQL} == "Y" ]]; then
             wget -c --no-cookie "http://git.php.net/?p=pecl/database/mysql.git;a=snapshot;h=647c933b6cc8f3e6ce8a466824c79143a98ee151;sf=tgz" -O php-mysql.tar.gz
@@ -1784,7 +1787,8 @@ install_java() {
 
     MODULE_NAME="Tomcat"
     ins_begin
-    wget_cache "https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz" "apache-tomcat-${TOMCAT_VER}.tar.gz"
+    #wget_cache "https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VER}/bin/apache-tomcat-${TOMCAT_VER}.tar.gz" "apache-tomcat-${TOMCAT_VER}.tar.gz"
+    wget_cache "https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.30/bin/apache-tomcat-9.0.30.tar.gz" "apache-tomcat-${TOMCAT_VER}.tar.gz"
     tar zxvf apache-tomcat-${TOMCAT_VER}.tar.gz || return 255
 
     cd apache-tomcat-${TOMCAT_VER}/bin
@@ -2376,20 +2380,21 @@ if [[ ${SETSSH} == "y" || ${SETSSH} == "Y" ]]; then
     ssh_setting
 fi
 
-```
+:<<!EOF!
 字符集代码:
 [:alnum:]     字母和数字,可以用来替代 a-zA-Z0-9
-[:alpha:]      字母，可以用来替代 a-zA-Z
-[:cntrl:]       控制（非打印）字符 
-[:digit:]       数字,可以用来替代 0-9
+[:alpha:]     字母，可以用来替代 a-zA-Z
+[:cntrl:]     控制（非打印）字符 
+[:digit:]     数字,可以用来替代 0-9
 [:graph:]     图形字符 
 [:lower:]     小写字母,可以用来替代 a-z
-[:p-rint:]    可打印字符（p 后面的 - 记得去掉哈！！！） 
-[:punct:]    标点符号 
-[:space:]    空白字符 
-[:upper:]    大写字母,可以用来替代 A-Z 
+[:print:]     可打印字符
+[:punct:]     标点符号 
+[:space:]     空白字符 
+[:upper:]     大写字母,可以用来替代 A-Z 
 [:xdigit:]    十六进制字符
-```
+!EOF!
+
 for module in "ZSH" "Htop" "Git" "Vim" "CMake" "MySQL" "Redis" "Python3"  "PHP" "NodeJS" "Nginx" "Java"; do
     MODULE_NAME=${module}
     if [[ ${INSSTACK} != "auto" ]]; then
